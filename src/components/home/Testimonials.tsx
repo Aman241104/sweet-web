@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Star } from "lucide-react";
+import { SketchCupcake, SketchTeapot } from "@/components/ui/HandDrawnIcons";
 import { SITE_CONFIG } from "@/config/site";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -88,8 +89,16 @@ export function Testimonials() {
   );
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 lg:px-10 overflow-hidden">
-      <div className="mx-auto max-w-7xl">
+    <section ref={sectionRef} className="relative py-24 px-6 lg:px-10 overflow-hidden">
+      {/* Floating Decorations */}
+      <div className="absolute top-10 left-0 lg:left-10 opacity-20 text-brand-accent pointer-events-none animate-float-slow">
+        <SketchCupcake className="w-32 h-32 -rotate-12" />
+      </div>
+      <div className="absolute bottom-10 right-0 lg:right-10 opacity-20 text-brand-cocoa pointer-events-none animate-float-slow animation-delay-2000">
+        <SketchTeapot className="w-40 h-40 rotate-6" />
+      </div>
+
+      <div className="mx-auto max-w-7xl relative z-10">
         {/* Heading */}
         <div className="test-heading text-center mb-16">
           <p className="font-sans text-xs uppercase tracking-[0.3em] text-brand-blush mb-3">

@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Instagram, Heart } from "lucide-react";
+import { SketchSparkle, SketchSwirl, SketchHeart } from "@/components/ui/HandDrawnIcons";
 import { SITE_CONFIG } from "@/config/site";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -65,8 +66,15 @@ export function InstagramFeed() {
   );
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 lg:px-10">
-      <div className="mx-auto max-w-7xl">
+    <section ref={sectionRef} className="relative py-24 px-6 lg:px-10 overflow-hidden">
+      {/* Hand-Drawn Decorations */}
+      <div className="pointer-events-none select-none">
+        <SketchSwirl className="absolute top-10 left-10 w-24 h-24 text-brand-cocoa/5 rotate-12" />
+        <SketchSparkle className="absolute top-20 right-[15%] w-12 h-12 text-brand-accent/20 animate-float-slow delay-300" />
+        <SketchHeart className="absolute bottom-10 left-[20%] w-16 h-16 text-brand-blush/10 -rotate-12 animate-float-slow delay-700" />
+      </div>
+
+      <div className="mx-auto max-w-7xl relative z-10">
         {/* ── Header ───────────────────────────────────────── */}
         <div className="text-center mb-14">
           <p className="font-sans text-xs uppercase tracking-[0.3em] text-brand-blush mb-3">

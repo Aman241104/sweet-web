@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { MessageCircle, MapPin, Clock } from "lucide-react";
+import { SketchArrow, SketchCookie } from "@/components/ui/HandDrawnIcons";
 import { SITE_CONFIG } from "@/config/site";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -87,9 +88,13 @@ export function ContactSection() {
     <section
       ref={sectionRef}
       id="contact"
-      className="py-24 px-6 lg:px-10 overflow-hidden"
+      className="relative py-24 px-6 lg:px-10 overflow-hidden bg-brand-accent-light/30"
     >
-      <div className="mx-auto max-w-7xl">
+      {/* Decorations */}
+      <SketchArrow className="hidden lg:block absolute top-32 left-[20%] w-24 h-24 text-brand-cocoa/10 rotate-[135deg] pointer-events-none" />
+      <SketchCookie className="absolute bottom-10 left-10 w-20 h-20 text-brand-cocoa/5 -rotate-12 pointer-events-none animate-float-slow" />
+
+      <div className="mx-auto max-w-7xl relative z-10">
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="font-sans text-xs uppercase tracking-[0.3em] text-brand-blush mb-3">
@@ -186,13 +191,16 @@ export function ContactSection() {
           <div className="contact-right relative">
             {/* Studio / bakery image -> REPLACED with Map Illustration */}
             <div className="relative aspect-4/3 rounded-[2rem] overflow-hidden shadow-lg bg-brand-cream border border-brand-cocoa/10">
-              {/* Replace placeholder with an actual map image or illustration */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1000&auto=format&fit=crop"
-                alt="Map illustration of Vastrapur, Ahmedabad"
-                className="absolute inset-0 h-full w-full object-cover opacity-80 mix-blend-multiply"
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.697915724496!2d72.5293247!3d23.0333215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e84aa58d638c3%3A0xf0718dfd13564883!2sVastrapur%20Lake%2C%20Vastrapur%2C%20Ahmedabad%2C%20Gujarat%20380015!5e0!3m2!1sen!2sin!4v1709225725791!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
                 loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 h-full w-full opacity-80 mix-blend-multiply grayscale-[0.2] contrast-[1.1]"
+                title="Gourmettazone Location"
               />
 
               {/* Glassmorphism info card overlay */}

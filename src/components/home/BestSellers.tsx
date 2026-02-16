@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductCard } from "@/components/ui/ProductCard";
+import { SketchStar, SketchHeart } from "@/components/ui/HandDrawnIcons";
 import { MENU_ITEMS } from "@/data/menu";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -62,7 +63,13 @@ export function BestSellers() {
   };
 
   return (
-    <section ref={sectionRef} className="relative py-24 overflow-hidden">
+    <section ref={sectionRef} className="relative py-24 overflow-hidden bg-brand-accent-light/30">
+      {/* ── Background Decors ──────────────────────────────────── */}
+      <div className="pointer-events-none select-none">
+        <SketchStar className="absolute top-10 left-[20%] w-10 h-10 text-brand-cocoa/10 animate-float-slow" />
+        <SketchHeart className="absolute top-16 right-[15%] w-12 h-12 text-brand-blush/20 animate-float-slow delay-700 rotate-12" />
+      </div>
+
       {/* ── Heading row ────────────────────────────────────────── */}
       <div className="mx-auto flex max-w-7xl items-end justify-between px-6 lg:px-10 mb-12">
         <div>

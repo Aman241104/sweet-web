@@ -4,6 +4,7 @@ import { useRef, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { SketchDoodle, SketchLeaf, SketchSparkle } from "@/components/ui/HandDrawnIcons";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -90,8 +91,15 @@ export function CategoryGrid() {
       ref={sectionRef}
       className="relative py-24 px-6 lg:px-10 overflow-hidden"
     >
+      {/* ── Background Decors ──────────────────────────────────── */}
+      <div className="pointer-events-none select-none">
+        <SketchDoodle className="absolute top-32 left-10 w-48 text-brand-cocoa/5 -rotate-3" />
+        <SketchLeaf className="absolute top-20 right-10 w-16 h-16 text-brand-accent/10 rotate-45 animate-float-slow" />
+        <SketchSparkle className="absolute bottom-40 right-20 w-8 h-8 text-brand-cocoa/10 animate-float-slow delay-500" />
+      </div>
+
       {/* ── Section heading ────────────────────────────────────── */}
-      <div className="mx-auto max-w-7xl text-center mb-16">
+      <div className="mx-auto max-w-7xl text-center mb-16 relative z-10">
         <h2 className="font-serif text-4xl sm:text-5xl text-brand-cocoa tracking-tight">
           Explore Our Creations
         </h2>

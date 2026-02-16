@@ -4,6 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { SketchWhisk, SketchStrawberry } from "@/components/ui/HandDrawnIcons";
 import { SITE_CONFIG } from "@/config/site";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -50,8 +51,11 @@ export function AboutBrief() {
   );
 
   return (
-    <section ref={sectionRef} id="our-story" className="py-24 px-6 lg:px-10 overflow-hidden">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+    <section ref={sectionRef} id="our-story" className="relative py-24 px-6 lg:px-10 overflow-hidden bg-brand-accent-light/30">
+      <SketchWhisk className="absolute top-20 left-10 w-32 h-32 text-brand-cocoa/5 -rotate-45 pointer-events-none select-none" />
+      <SketchStrawberry className="absolute bottom-20 right-10 w-24 h-24 text-brand-accent/5 rotate-12 pointer-events-none select-none animate-float-slow" />
+
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20 relative z-10">
         {/* ── Image column ──────────────────────────────────── */}
         <div className="about-img relative">
           <div className="relative aspect-4/5 mask-arch overflow-hidden shadow-xl">

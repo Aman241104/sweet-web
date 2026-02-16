@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Wheat, Leaf, Palette, Truck } from "lucide-react";
 import { WheatStalk } from "@/components/ui/Decorations";
+import { SketchRollingPin, SketchCookie } from "@/components/ui/HandDrawnIcons";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,8 +61,14 @@ export function Features() {
   );
 
   return (
-    <section ref={sectionRef} className="relative py-24 px-6 lg:px-10 overflow-hidden">
+    <section ref={sectionRef} className="relative py-24 px-6 lg:px-10 overflow-hidden bg-brand-accent-light/30">
       <WheatStalk className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] text-brand-cocoa/5 pointer-events-none" />
+
+      {/* Hand-Drawn Decorations */}
+      <div className="pointer-events-none select-none">
+        <SketchRollingPin className="absolute -top-10 -left-10 w-40 h-40 text-brand-cocoa/5 -rotate-12" />
+        <SketchCookie className="absolute bottom-10 -right-5 w-24 h-24 text-brand-cocoa/10 rotate-12 animate-float-slow" />
+      </div>
       <div className="mx-auto max-w-5xl relative z-10">
         {/* Header */}
         <div className="text-center mb-16">

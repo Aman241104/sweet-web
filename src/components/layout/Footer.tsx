@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Instagram, Twitter, ArrowRight } from "lucide-react";
+import { SketchCupcake, SketchWheat, SketchWhisk } from "@/components/ui/HandDrawnIcons";
 import { SITE_CONFIG } from "@/config/site";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -51,6 +52,15 @@ export function Footer() {
 
   return (
     <footer ref={footerRef} className="relative bg-brand-cocoa pt-20 pb-8 px-6 lg:px-10 overflow-hidden">
+      {/* ── Top Border Decoration (Hand-Drawn) ────────────────── */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden flex justify-center gap-12 py-4 opacity-20 pointer-events-none select-none">
+        <SketchCupcake className="h-8 w-8 text-brand-cream animate-float-slow" strokeWidth={2} />
+        <SketchWheat className="h-8 w-8 text-brand-cream animate-float-slow delay-75" strokeWidth={2} />
+        <SketchWhisk className="h-8 w-8 text-brand-cream animate-float-slow delay-150" strokeWidth={2} />
+        <SketchWheat className="h-8 w-8 text-brand-cream animate-float-slow delay-75" strokeWidth={2} />
+        <SketchCupcake className="h-8 w-8 text-brand-cream animate-float-slow" strokeWidth={2} />
+      </div>
+
       {/* ── Background watermark ──────────────────────────────── */}
       <span
         className="absolute bottom-0 left-0 -mb-10 font-serif text-[8rem] md:text-[12rem]
