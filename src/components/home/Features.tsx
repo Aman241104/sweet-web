@@ -5,29 +5,30 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Wheat, Leaf, Palette, Truck } from "lucide-react";
+import { WheatStalk } from "@/components/ui/Decorations";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const FEATURES = [
   {
     icon: Wheat,
-    title: "Freshly Baked",
-    desc: "Baked fresh every morning using locally sourced, premium ingredients.",
+    title: "Customized Cakes",
+    desc: "Bespoke designs for weddings, birthdays, and special occasions.",
   },
   {
     icon: Leaf,
-    title: "100% Eggless Options",
-    desc: "Premium egg-free recipes that taste just as divine — no compromise.",
+    title: "Healthy Choice",
+    desc: "Healthy cookies, whole wheat brownies, and guilt-free indulgences.",
   },
   {
     icon: Palette,
-    title: "Custom Designs",
-    desc: "You dream it, we sculpt it. Bespoke artistry for every occasion.",
+    title: "Corporate Gifting",
+    desc: "Premium assorted chocolates and gift hampers for your business needs.",
   },
   {
     icon: Truck,
-    title: "Doorstep Delivery",
-    desc: "Carefully packaged and delivered to your door with a smile.",
+    title: "Wide Variety",
+    desc: "From cheesecakes and brownies to savory puffs and exotic pastries.",
   },
 ] as const;
 
@@ -59,12 +60,13 @@ export function Features() {
   );
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 lg:px-10">
-      <div className="mx-auto max-w-5xl">
+    <section ref={sectionRef} className="relative py-24 px-6 lg:px-10 overflow-hidden">
+      <WheatStalk className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] text-brand-cocoa/5 pointer-events-none" />
+      <div className="mx-auto max-w-5xl relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl sm:text-5xl text-brand-cocoa tracking-tight mb-4">
-            The L&rsquo;Artisan Promise
+            The Gourmettazone Promise
           </h2>
           <p className="font-sans text-base text-brand-charcoal/60 max-w-xl mx-auto">
             Elevating the art of baking, one detail at a time.

@@ -1,11 +1,13 @@
 "use client";
 
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { products, CATEGORIES, type Category } from "@/data/products";
+import { MENU_ITEMS, CATEGORIES } from "@/data/menu";
 import { ProductCard } from "@/components/ui/ProductCard";
+import { CategoryNav } from "@/components/menu/CategoryNav";
+import { OrganicSwirl } from "@/components/ui/Decorations";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,127 +16,95 @@ gsap.registerPlugin(ScrollTrigger);
    ================================================================ */
 export function MenuSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const [activeCategory, setActiveCategory] = useState<Category>("All");
 
-  /* ── Filtered products ───────────────────────────────────────── */
-  const filtered = useMemo(
-    () =>
-      activeCategory === "All"
-        ? products
-        : products.filter((p) => p.category === activeCategory),
-    [activeCategory]
-  );
-
-  /* ── Section heading entry (once) ────────────────────────────── */
+  /* ── Reveal animations on scroll ────────────────────────────── */
   useGSAP(
     () => {
-      const heading = sectionRef.current?.querySelector(".menu-heading");
-      if (!heading) return;
-      gsap.from(heading, {
-        y: 40,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: heading,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
+      const sections = gsap.utils.toArray<HTMLElement>(".menu-category-section");
+      sections.forEach((section) => {
+        gsap.from(section.children, {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
       });
     },
     { scope: sectionRef }
   );
 
-  /* ── GSAP cascade on category change ─────────────────────────── */
-  useEffect(() => {
-    if (!gridRef.current) return;
-    const cards = gridRef.current.querySelectorAll(".menu-card");
-    if (!cards.length) return;
-
-    // Kill any in-flight card animations
-    gsap.killTweensOf(cards);
-
-    gsap.fromTo(
-      cards,
-      { y: 20, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        stagger: 0.05,
-        duration: 0.4,
-        ease: "power2.out",
-      }
-    );
-  }, [activeCategory, filtered]);
-
   return (
-    <section
-      ref={sectionRef}
-      id="menu"
-      className="relative py-24 px-6 lg:px-10 overflow-hidden"
-    >
-      <div className="mx-auto max-w-7xl">
-        {/* ── Heading ──────────────────────────────────────────── */}
-        <div className="menu-heading text-center mb-10">
-          <p className="font-sans text-xs uppercase tracking-widest text-brand-blush mb-2">
-            Taste the Difference
-          </p>
-          <h2 className="font-serif text-4xl sm:text-5xl text-brand-cocoa tracking-tight">
-            Our Signature Menu
-          </h2>
-        </div>
+    <section ref={sectionRef} id="menu" className="relative pb-24">
+      {/* ── Sticky Nav ─────────────────────────────────────────── */}
+      <CategoryNav />
 
-        {/* ── Filter pills ─────────────────────────────────────── */}
-        <div
-          className="flex gap-3 justify-center flex-wrap mb-14
-                     overflow-x-auto scroll-smooth pb-2
-                     scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none]
-                     [&::-webkit-scrollbar]:hidden"
-        >
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`shrink-0 rounded-full px-6 min-h-[44px] font-sans text-xs uppercase tracking-wider
-                          transition-all duration-300 border
-                          ${
-                            activeCategory === cat
-                              ? "bg-brand-cocoa text-brand-cream border-brand-cocoa scale-105 shadow-md"
-                              : "bg-transparent text-brand-cocoa border-brand-cocoa/20 hover:border-brand-cocoa/50"
-                          }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+      {/* ── Sections Loop ──────────────────────────────────────── */}
+      {CATEGORIES.filter((cat) => cat !== "All").map((category, index) => {
+        const categoryProducts = MENU_ITEMS.filter((p) => p.category === category);
+        const isEven = index % 2 === 0;
 
-        {/* ── Product grid ─────────────────────────────────────── */}
-        <div
-          ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {filtered.map((product) => (
-            <div key={product.id} className="menu-card">
-              <ProductCard
-                id={product.id}
-                name={product.name}
-                price={product.price}
-                image={product.image}
-                badge={product.badge}
-                className="w-full"
-              />
+        return (
+          <div
+            key={category}
+            id={category}
+            className={`menu-category-section relative py-20 px-6 lg:px-10 scroll-mt-32
+              ${isEven ? "bg-brand-cream" : "bg-brand-accent-light/30"}
+            `}
+          >
+            {/* Decorative divider for odd sections */}
+            {!isEven && (
+              <OrganicSwirl className="absolute -top-12 right-0 w-64 h-64 text-brand-cocoa/5 pointer-events-none rotate-180" />
+            )}
+
+            <div className="mx-auto max-w-7xl">
+              {/* ── Section Title (Editorial) ──────────────────── */}
+              <div className="relative mb-12 py-6 overflow-hidden">
+                {/* Giant Watermark Number */}
+                <span className="absolute -top-10 -left-6 text-9xl font-serif font-bold text-brand-cocoa/5 select-none pointer-events-none z-0">
+                  0{index + 1}
+                </span>
+
+                {/* Actual Title */}
+                <div className="relative z-10 flex items-center gap-4">
+                  <h2 className="text-4xl md:text-5xl font-serif text-brand-cocoa">
+                    {category}
+                  </h2>
+                  <span className="h-[1px] w-24 bg-brand-accent/50 hidden md:block"></span>
+                  <span className="font-sans text-xs font-medium text-brand-accent uppercase tracking-widest bg-brand-accent/5 px-2 py-1 rounded-md">
+                    {categoryProducts.length} Items
+                  </span>
+                </div>
+              </div>
+
+              {/* ── Grid ───────────────────────────────────────── */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {categoryProducts.map((product, i) => (
+                  <ProductCard
+                    key={product.id}
+                    {...product}
+                    isSpotlight={i === 0} // First item is spotlight
+                    className="w-full"
+                  />
+                ))}
+              </div>
+
+              {/* Empty state (unlikely but safe) */}
+              {categoryProducts.length === 0 && (
+                <p className="text-center font-sans text-brand-charcoal/40 mt-8 italic">
+                  Seasonal specials coming soon.
+                </p>
+              )}
             </div>
-          ))}
-        </div>
-
-        {/* Empty state */}
-        {filtered.length === 0 && (
-          <p className="text-center font-sans text-brand-charcoal/40 mt-12">
-            No items in this category yet — check back soon!
-          </p>
-        )}
-      </div>
+          </div>
+        );
+      })}
     </section>
   );
 }
+

@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ArrowRight } from "lucide-react";
 import { SITE_CONFIG } from "@/config/site";
+import { GlowOrb, OrganicSwirl } from "@/components/ui/Decorations";
 
 /* ── Hero image ─────────────────────────────────────────────────── */
 const HERO_IMAGE =
@@ -54,9 +55,9 @@ export function Hero() {
         tl.from(
           imageWrapRef.current,
           {
-            scale: 1.08,
+            scale: 1.1, // Updated to 1.1 as per prompt
             opacity: 0,
-            duration: 1.6,
+            duration: 1.2, // Updated to 1.2s
             ease: "power2.out",
           },
           "-=1"
@@ -72,6 +73,18 @@ export function Hero() {
           delay: 1.5,
         });
       }
+
+      /* 5 — Mobile image reveal */
+      const mobileImg = sectionRef.current?.querySelector(".hero-mobile-img");
+      if (mobileImg) {
+        gsap.from(mobileImg, {
+          scale: 1.1,
+          opacity: 0,
+          duration: 1.2,
+          ease: "power2.out",
+          delay: 0.5, // Slight delay for mobile
+        });
+      }
     },
     { scope: sectionRef }
   );
@@ -84,15 +97,22 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-[90vh] flex items-center overflow-hidden pt-28 pb-16 px-6 lg:px-10"
+      className="relative min-h-[90vh] flex items-center overflow-hidden pt-40 pb-16 px-6 lg:px-10"
     >
       {/* ── Ambient depth orbs ───────────────────────────────── */}
       <div className="pointer-events-none absolute -top-20 -left-20 h-[600px] w-[600px] rounded-full bg-brand-blush/20 blur-[120px] -z-10" />
       <div className="pointer-events-none absolute -bottom-48 -right-48 h-[500px] w-[500px] rounded-full bg-brand-blush/10 blur-[100px] -z-10" />
 
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      {/* Decorative Elements */}
+      <GlowOrb className="w-[500px] h-[500px] top-1/2 left-0 -translate-y-1/2 -ml-20" />
+      <OrganicSwirl className="absolute -bottom-24 -right-24 w-96 h-96 text-brand-accent/5 -rotate-12 pointer-events-none" />
+
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20 relative z-10">
         {/* ── Left column: Text ──────────────────────────────── */}
         <div className="order-1 lg:order-1">
+          <span className="font-script text-3xl text-brand-accent -rotate-6 mb-4 block origin-bottom-left">
+            Est. 2015
+          </span>
           <h1
             ref={headlineRef}
             className="font-serif text-6xl md:text-8xl tracking-tighter leading-[0.9] text-brand-cocoa"
@@ -106,7 +126,7 @@ export function Hero() {
 
           {/* On mobile: image appears here, between headline and subtext */}
           <div className="mt-8 block lg:hidden">
-            <div className="relative w-full aspect-4/5 rounded-[2rem] overflow-hidden
+            <div className="hero-mobile-img relative w-full aspect-4/5 mask-arch overflow-hidden
                             bg-brand-cocoa/10 border border-white/40
                             shadow-[0_20px_50px_-12px_rgba(61,43,31,0.15)]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -130,7 +150,7 @@ export function Hero() {
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap gap-4">
               <a
-                href="#menu"
+                href="/menu"
                 className="group inline-flex items-center gap-2 rounded-full
                            bg-brand-cocoa text-brand-cream px-8 py-4
                            font-sans text-sm tracking-wider uppercase
@@ -165,7 +185,7 @@ export function Hero() {
             {/* Image Container */}
             <div
               ref={imageWrapRef}
-              className="relative w-full h-full rounded-[2rem] overflow-hidden shadow-[0_20px_50px_-12px_rgba(61,43,31,0.15)] border border-white/40"
+              className="relative w-full h-full mask-arch overflow-hidden shadow-[0_20px_50px_-12px_rgba(61,43,31,0.15)] border border-white/40"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -174,7 +194,7 @@ export function Hero() {
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700 ease-out"
                 loading="eager"
               />
-              
+
               {/* Backup Gradient (In case image fails, this shows instead of white box) */}
               <div className="absolute inset-0 bg-gradient-to-tr from-brand-cocoa/5 to-transparent -z-10" />
             </div>

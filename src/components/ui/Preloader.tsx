@@ -53,9 +53,14 @@ export function Preloader() {
         ref={logoRef}
         className="opacity-0 text-center"
       >
-        <span className="font-serif text-4xl sm:text-6xl tracking-[-0.04em] text-brand-cream select-none">
-          {SITE_CONFIG.name}
-        </span>
+        <div className="w-64 mx-auto">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={SITE_CONFIG.logo}
+            alt={SITE_CONFIG.name}
+            className="w-full h-auto object-contain"
+          />
+        </div>
         <div className="mt-4 h-px w-12 bg-brand-blush/40 mx-auto" />
       </div>
     </div>

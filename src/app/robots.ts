@@ -6,6 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://lartisan-sweets.vercel.app/sitemap.xml",
+    host: "https://gourmettazone.com",
+    sitemap: "https://gourmettazone.com/sitemap.xml",
   };
 }

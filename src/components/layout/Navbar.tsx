@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import Link from "next/link";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { SITE_CONFIG } from "@/config/site";
@@ -61,25 +62,37 @@ export function Navbar() {
     <>
       <nav
         ref={navRef}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${scrolled || !isHome
-          ? "bg-brand-cream/80 backdrop-blur-md shadow-[0_1px_0_rgba(61,43,31,.08)]"
-          : "bg-transparent"
+        className={`fixed top-10 left-0 w-full z-50 h-20 transition-all duration-500 ${scrolled || !isHome
+          ? "bg-brand-cream/80 backdrop-blur-md shadow-sm border-t-4 border-brand-accent"
+          : "bg-transparent border-t-4 border-transparent"
           }`}
       >
-        <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:px-10">
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-10">
           {/* ── Logo ─────────────────────────────────────────── */}
-          <a
+          <Link
             href={isHome ? "#home" : "/"}
-            className="font-serif text-2xl tracking-[-0.04em] text-brand-cocoa select-none"
+            className="flex items-center gap-3 select-none"
           >
-            {SITE_CONFIG.name}
-          </a>
+            {/* Logo Image */}
+            <div className="relative h-12 w-12 shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={SITE_CONFIG.logo}
+                alt={SITE_CONFIG.name}
+                className="h-full w-full object-contain"
+              />
+            </div>
+            {/* Text Logo */}
+            <span className="font-serif text-xl tracking-[-0.04em] text-brand-cocoa leading-tight max-w-[12rem]">
+              {SITE_CONFIG.name}
+            </span>
+          </Link>
 
           {/* ── Desktop links (centred) ──────────────────────── */}
           <ul className="hidden md:flex items-center gap-9">
             {NAV_LINKS.map((link) => (
               <li key={link.label}>
-                <a
+                <Link
                   href={
                     !isHome && link.href.startsWith("#")
                       ? `/${link.href}`
@@ -89,7 +102,7 @@ export function Navbar() {
                              text-brand-cocoa/80 hover:text-brand-cocoa transition-colors"
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -196,7 +209,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
       <ul ref={linksRef} className="flex flex-col items-center gap-8">
         {NAV_LINKS.map((link) => (
           <li key={link.label}>
-            <a
+            <Link
               href={
                 !isHome && link.href.startsWith("#")
                   ? `/${link.href}`
@@ -206,7 +219,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
               className="font-serif text-3xl tracking-tight text-brand-cocoa hover:text-brand-blush transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           </li>
         ))}
 

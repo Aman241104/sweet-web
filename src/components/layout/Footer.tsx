@@ -11,10 +11,10 @@ import { SITE_CONFIG } from "@/config/site";
 gsap.registerPlugin(ScrollTrigger);
 
 const QUICK_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "Menu", href: "#menu" },
-  { label: "Our Story", href: "#our-story" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Menu", href: "/menu" },
+  { label: "Our Story", href: "/#our-story" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const SOCIALS = [
@@ -53,11 +53,11 @@ export function Footer() {
     <footer ref={footerRef} className="relative bg-brand-cocoa pt-20 pb-8 px-6 lg:px-10 overflow-hidden">
       {/* ── Background watermark ──────────────────────────────── */}
       <span
-        className="absolute bottom-0 left-0 -mb-10 font-serif text-[10rem] md:text-[15rem]
+        className="absolute bottom-0 left-0 -mb-10 font-serif text-[8rem] md:text-[12rem]
                    leading-none text-brand-cream/5 pointer-events-none select-none whitespace-nowrap"
         aria-hidden="true"
       >
-        The Gourmetttazone
+        Gourmettazone
       </span>
 
       <div className="relative mx-auto max-w-7xl">
@@ -65,11 +65,17 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10 mb-16">
           {/* Column 1 — Brand */}
           <div className="footer-col">
-            <Link href="/" className="font-serif text-2xl tracking-tighter text-brand-cream">
-              {SITE_CONFIG.name}
+            <Link href="/" className="block w-48 mb-6">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={SITE_CONFIG.logo}
+                alt={SITE_CONFIG.name}
+                // Removed filters to show original logo color (red/white)
+                className="h-auto w-full object-contain"
+              />
             </Link>
             <p className="mt-4 font-sans text-sm text-brand-cream/60 leading-relaxed max-w-[240px]">
-              Sweetening lives since 2015. {SITE_CONFIG.tagline}.
+              {SITE_CONFIG.tagline}
             </p>
             <div className="flex gap-3 mt-6">
               {SOCIALS.map((s) => (
@@ -98,13 +104,13 @@ export function Footer() {
             <ul className="space-y-3">
               {QUICK_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
                     className="inline-block font-sans text-sm text-brand-cream/70 tracking-wide
                                transition-all duration-300 hover:text-white hover:translate-x-1"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -116,6 +122,7 @@ export function Footer() {
               Get in Touch
             </h4>
             <ul className="space-y-3 font-sans text-sm text-brand-cream/70 tracking-wide leading-loose">
+              <li className="font-semibold text-brand-cream">{SITE_CONFIG.contactPerson}</li>
               <li>{SITE_CONFIG.address}</li>
               <li>
                 <a
@@ -127,10 +134,10 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:hello@lartisansweets.com"
+                  href="mailto:hello@gourmettazone.com"
                   className="inline-block transition-all duration-300 hover:text-white hover:translate-x-1"
                 >
-                  hello@lartisansweets.com
+                  hello@gourmettazone.com
                 </a>
               </li>
             </ul>

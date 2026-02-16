@@ -3,6 +3,8 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Preloader } from "@/components/ui/Preloader";
+import { CustomCursor } from "@/components/ui/CustomCursor";
+import { ParallaxFloating } from "@/components/ui/ParallaxFloating";
 import { SITE_CONFIG } from "@/config/site";
 
 const playfair = Playfair_Display({
@@ -19,9 +21,18 @@ const inter = Inter({
   display: "swap",
 });
 
+import { Great_Vibes } from "next/font/google";
+
+const greatVibes = Great_Vibes({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-script",
+  display: "swap",
+});
+
 /* ── SEO & Open Graph Metadata ──────────────────────────────────── */
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lartisansweets.com"),
+  metadataBase: new URL("https://gourmettazone.com"),
   title: `${SITE_CONFIG.name} | ${SITE_CONFIG.tagline}`,
   description:
     "Order exotic brownies, bespoke cakes, and healthy cookies online. Freshly baked by Kavita and delivered in Ahmedabad. Chat with us on WhatsApp to customize.",
@@ -40,7 +51,7 @@ export const metadata: Metadata = {
     title: "Craving Something Sweet? 🍰",
     description:
       `Explore ${SITE_CONFIG.name}'s premium menu. Click to view our latest creations.`,
-    url: "https://gourmetttazone.com",
+    url: "https://gourmettazone.com",
     siteName: SITE_CONFIG.name,
     images: [
       {
@@ -74,10 +85,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${playfair.variable} ${inter.variable} antialiased`}
+        className={`${playfair.variable} ${inter.variable} ${greatVibes.variable} antialiased`}
       >
         <Preloader />
         <Navbar />
+        <div
+          className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.03] mix-blend-multiply"
+          style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}
+        />
+        <CustomCursor />
+        <ParallaxFloating />
         {children}
       </body>
     </html>

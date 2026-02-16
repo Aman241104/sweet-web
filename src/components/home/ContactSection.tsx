@@ -74,9 +74,9 @@ export function ContactSection() {
       e.preventDefault();
       const text = encodeURIComponent(
         `Hi, I am ${form.name || "a visitor"}.\n` +
-          `📞 Phone: ${form.phone || "N/A"}\n` +
-          `📅 Event Date: ${form.date || "N/A"}\n` +
-          `💬 ${form.message || "I'd like to discuss my order."}`
+        `📞 Phone: ${form.phone || "N/A"}\n` +
+        `📅 Event Date: ${form.date || "N/A"}\n` +
+        `💬 ${form.message || "I'd like to discuss my order."}`
       );
       window.open(`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${text}`, "_blank");
     },
@@ -184,13 +184,14 @@ export function ContactSection() {
 
           {/* ── Right: Studio image + info card ────────────────── */}
           <div className="contact-right relative">
-            {/* Studio / bakery image */}
-            <div className="relative aspect-4/3 rounded-[2rem] overflow-hidden shadow-lg bg-brand-cocoa/5">
+            {/* Studio / bakery image -> REPLACED with Map Illustration */}
+            <div className="relative aspect-4/3 rounded-[2rem] overflow-hidden shadow-lg bg-brand-cream border border-brand-cocoa/10">
+              {/* Replace placeholder with an actual map image or illustration */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={STUDIO_IMAGE}
-                alt="Warm, inviting bakery interior with natural light"
-                className="absolute inset-0 h-full w-full object-cover"
+                src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1000&auto=format&fit=crop"
+                alt="Map illustration of Vastrapur, Ahmedabad"
+                className="absolute inset-0 h-full w-full object-cover opacity-80 mix-blend-multiply"
                 loading="lazy"
               />
 
@@ -200,7 +201,8 @@ export function ContactSection() {
                 <div className="flex items-start gap-3 mb-3">
                   <MapPin size={18} className="text-brand-blush mt-0.5 shrink-0" />
                   <p className="font-sans text-sm text-brand-cocoa leading-snug">
-                    {SITE_CONFIG.address}
+                    {SITE_CONFIG.address}<br />
+                    <span className="font-semibold text-brand-cocoa/80">Contact: {SITE_CONFIG.contactPerson}</span>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">

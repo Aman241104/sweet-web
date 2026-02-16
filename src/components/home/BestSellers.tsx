@@ -6,20 +6,20 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductCard } from "@/components/ui/ProductCard";
-import { products } from "@/data/products";
+import { MENU_ITEMS } from "@/data/menu";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /* ── Best-seller product data ───────────────────────────────────── */
 const BEST_SELLER_NAMES = [
-  "Velvet Rose Cake",
-  "Chocolate Truffle Tower",
-  "Strawberry Bliss",
-  "Classic French Croissant",
-  "Wedding Elegance",
-  "Pain au Chocolat",
-  "Artisan Fruit Tart",
-  "Rainbow Sprinkle",
+  "Hazelnut Cake",
+  "Rasmalai Cake",
+  "Biscoff Cake",
+  "Burnt Basque Cheesecake",
+  "Wheat Jaggery Brownie",
+  "Kunafa Bar",
+  "Coconut Jaggery Cookies",
+  "Alphonso Mango Cake",
 ];
 
 /* ================================================================
@@ -105,7 +105,7 @@ export function BestSellers() {
                    [&::-webkit-scrollbar]:hidden"
       >
         {BEST_SELLER_NAMES.map((name) => {
-          const product = products.find((p) => p.name === name);
+          const product = MENU_ITEMS.find((p) => p.name === name);
           if (!product) return null;
           return (
             <div key={product.id} className="product-card-wrap shrink-0">

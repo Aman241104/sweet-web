@@ -10,10 +10,15 @@ import { ContactSection } from "@/components/home/ContactSection";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingWhatsApp } from "@/components/ui/FloatingWhatsApp";
 
+import { MarqueeBar } from "@/components/ui/MarqueeBar";
+import { SectionDivider } from "@/components/ui/SectionDivider";
+
 export default function Home() {
   return (
     <main>
+      <MarqueeBar />
       <Hero />
+      <SectionDivider className="text-brand-cream -mt-1 relative z-20" />
       <Features />
       <CategoryGrid />
       <BestSellers />
@@ -25,10 +30,12 @@ export default function Home() {
           View Full Menu
         </a>
       </div>
+      <SectionDivider className="text-white rotate-180 -mb-1" />
       <Testimonials />
       <AboutBrief />
       <InstagramFeed />
       <ContactSection />
+      <SectionDivider className="text-brand-cocoa -mb-1" />
       <Footer />
       <FloatingWhatsApp />
     </main>

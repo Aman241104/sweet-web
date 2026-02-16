@@ -130,7 +130,7 @@ export function Testimonials() {
               </div>
 
               {/* Quote — italic serif */}
-              <p className="font-serif italic text-lg md:text-xl text-brand-cocoa/80 leading-relaxed flex-1">
+              <p className="font-serif italic text-lg md:text-xl text-brand-cocoa leading-relaxed flex-1">
                 &ldquo;{r.quote}&rdquo;
               </p>
 

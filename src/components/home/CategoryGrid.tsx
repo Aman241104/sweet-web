@@ -10,34 +10,24 @@ gsap.registerPlugin(ScrollTrigger);
 /* ── Category data ──────────────────────────────────────────────── */
 const CATEGORIES = [
   {
-    title: "Birthday Cakes",
+    title: "Classic Cakes",
     image:
-      "https://images.unsplash.com/photo-1563729784474-d779b9593aee?q=80&w=800",
+      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800",
   },
   {
-    title: "Designer Cakes",
+    title: "Signature Cakes",
     image:
-      "https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=800",
+      "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=800",
   },
   {
-    title: "Photo Cakes",
+    title: "Fusion Cakes",
     image:
-      "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?q=80&w=800",
+      "https://images.unsplash.com/photo-1626803775151-61d756612fcd?q=80&w=800",
   },
   {
-    title: "Wedding Cakes",
+    title: "Cheesecakes",
     image:
-      "https://images.unsplash.com/photo-1535254973040-607b474cb50d?q=80&w=800",
-  },
-  {
-    title: "Cupcakes",
-    image:
-      "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?q=80&w=800",
-  },
-  {
-    title: "Pastries",
-    image:
-      "https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800",
+      "https://images.unsplash.com/photo-1567327613485-fbc7bf196198?q=80&w=800",
   },
   {
     title: "Brownies",
@@ -45,9 +35,19 @@ const CATEGORIES = [
       "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=800",
   },
   {
-    title: "Custom Cakes",
+    title: "Healthy Cookies",
     image:
-      "https://images.unsplash.com/photo-1562440499-64c9a111f713?q=80&w=800",
+      "https://images.unsplash.com/photo-1499636138143-bd649043ea52?q=80&w=800",
+  },
+  {
+    title: "Pastries & Puffs",
+    image:
+      "https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800",
+  },
+  {
+    title: "Chocolates",
+    image:
+      "https://images.unsplash.com/photo-1548907040-4baa42d10919?q=80&w=800",
   },
 ] as const;
 
@@ -103,7 +103,7 @@ export function CategoryGrid() {
       {/* ── Grid ───────────────────────────────────────────────── */}
       <div
         ref={gridRef}
-        className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+        className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 [&>*:nth-child(even)]:lg:translate-y-12"
       >
         {CATEGORIES.map((cat) => (
           <CategoryCard key={cat.title} title={cat.title} image={cat.image} />

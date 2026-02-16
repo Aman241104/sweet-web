@@ -54,7 +54,7 @@ export function AboutBrief() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
         {/* ── Image column ──────────────────────────────────── */}
         <div className="about-img relative">
-          <div className="relative aspect-4/5 rounded-[2rem] overflow-hidden shadow-xl">
+          <div className="relative aspect-4/5 mask-arch overflow-hidden shadow-xl">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={ABOUT_IMAGE}
@@ -94,7 +94,7 @@ export function AboutBrief() {
             More Than Just Flour&nbsp;&amp;&nbsp;Sugar.
           </h2>
 
-          <div className="space-y-4 font-sans text-base text-brand-charcoal/70 leading-loose max-w-lg">
+          <div className="space-y-4 font-sans text-base text-brand-charcoal/90 leading-loose max-w-lg">
             <p>
               Founded in 2015, {SITE_CONFIG.name} began in a small home kitchen
               with a single mission: to craft desserts that evoke emotion.

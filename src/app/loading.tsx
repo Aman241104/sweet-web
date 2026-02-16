@@ -5,9 +5,14 @@ export default function Loading() {
     <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-brand-cream">
       {/* Pulsing logo */}
       <div className="animate-pulse">
-        <span className="font-serif text-4xl tracking-[-0.04em] text-brand-cocoa select-none">
-          {SITE_CONFIG.name}
-        </span>
+        <div className="w-48 mx-auto">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={SITE_CONFIG.logo}
+            alt={SITE_CONFIG.name}
+            className="w-full h-auto object-contain"
+          />
+        </div>
       </div>
 
       {/* Subtle loading bar */}
