@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ArrowRight } from "lucide-react";
 import { SITE_CONFIG } from "@/config/site";
 import { GlowOrb, OrganicSwirl } from "@/components/ui/Decorations";
 import {
@@ -13,6 +12,7 @@ import {
   SketchSparkle,
   SketchSwirl
 } from "@/components/ui/HandDrawnIcons";
+import { ArrowRight, Leaf } from "lucide-react";
 
 /* ── Hero image ─────────────────────────────────────────────────── */
 const HERO_IMAGE =
@@ -111,16 +111,16 @@ export function Hero() {
       <div className="pointer-events-none absolute -bottom-48 -right-48 h-[500px] w-[500px] rounded-full bg-brand-blush/10 blur-[100px] -z-10" />
 
       {/* Decorative Elements */}
-      <GlowOrb className="w-[500px] h-[500px] top-1/2 left-0 -translate-y-1/2 -ml-20" />
-      <OrganicSwirl className="absolute -bottom-24 -right-24 w-96 h-96 text-brand-accent/5 -rotate-12 pointer-events-none" />
+      <GlowOrb className="w-[500px] h-[500px] top-1/2 left-0 -translate-y-1/2 -ml-20 !text-brand-pista/30" />
+      <OrganicSwirl className="absolute -bottom-24 -right-24 w-96 h-96 text-brand-pista/20 -rotate-12 pointer-events-none" />
 
       {/* Floating Sketches */}
       <div className="pointer-events-none select-none">
         <SketchStar className="absolute top-24 left-10 w-12 h-12 text-brand-cocoa/10 animate-float-slow -rotate-12" />
-        <SketchHeart className="absolute top-40 right-20 w-16 h-16 text-brand-accent/10 animate-float-slow delay-1000 rotate-12" />
-        <SketchLeaf className="absolute bottom-20 left-1/4 w-14 h-14 text-brand-cocoa/5 animate-float-slow delay-500 -rotate-45" />
-        <SketchSparkle className="absolute bottom-40 left-10 w-10 h-10 text-brand-blush/20 animate-float-slow delay-200" />
-        <SketchSwirl className="absolute top-1/2 right-10 w-20 h-20 text-brand-cocoa/5 -rotate-90" />
+        <SketchHeart className="absolute top-40 right-20 w-16 h-16 text-brand-accent/20 animate-float-slow delay-1000 rotate-12" />
+        <SketchLeaf className="absolute bottom-20 left-1/4 w-14 h-14 text-brand-pista animate-float-slow delay-500 -rotate-45" />
+        <SketchSparkle className="absolute bottom-40 left-10 w-10 h-10 text-brand-accent/30 animate-float-slow delay-200" />
+        <SketchSwirl className="absolute top-1/2 right-10 w-20 h-20 text-brand-pista/40 -rotate-90" />
       </div>
 
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20 relative z-10">
@@ -168,9 +168,9 @@ export function Hero() {
               <a
                 href="/menu"
                 className="group inline-flex items-center gap-2 rounded-full
-                           bg-brand-cocoa text-brand-cream px-8 py-4
+                           bg-brand-accent text-brand-cream px-8 py-4
                            font-sans text-sm tracking-wider uppercase
-                           shadow-lg shadow-brand-cocoa/20
+                           shadow-lg shadow-brand-accent/20
                            hover:scale-105 transition-transform duration-300"
               >
                 Explore Collection
@@ -217,6 +217,6 @@ export function Hero() {
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 }

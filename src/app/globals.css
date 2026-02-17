@@ -10,6 +10,8 @@
   --color-brand-charcoal: #2d2d2d;
   --color-brand-accent: #D93856;
   --color-brand-accent-light: #FCE7EC;
+  --color-brand-pista: #D4E7C5;
+  --color-brand-pista-light: #EAF6DF;
 
   /* Font families */
   --font-serif: "Playfair Display", serif;
@@ -106,8 +108,8 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #3d2b1f;
-  /* brand-cocoa */
+  background-color: #D93856;
+  /* brand-accent */
   border-radius: 4px;
   border: 2px solid #fff8f0;
   /* Creates padding effect */

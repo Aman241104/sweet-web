@@ -8,8 +8,7 @@ import { MENU_ITEMS, CATEGORIES } from "@/data/menu";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { CategoryNav } from "@/components/menu/CategoryNav";
 import { OrganicSwirl } from "@/components/ui/Decorations";
-
-gsap.registerPlugin(ScrollTrigger);
+import { slugify } from "@/utils/slugify";
 
 /* ================================================================
    MenuSection — filterable product grid
@@ -48,13 +47,14 @@ export function MenuSection() {
       {CATEGORIES.filter((cat) => cat !== "All").map((category, index) => {
         const categoryProducts = MENU_ITEMS.filter((p) => p.category === category);
         const isEven = index % 2 === 0;
+        const slug = slugify(category);
 
         return (
           <div
             key={category}
-            id={category}
+            id={slug}
             className={`menu-category-section relative py-20 px-6 lg:px-10 scroll-mt-32
-              ${isEven ? "bg-brand-cream" : "bg-brand-accent-light/30"}
+              ${isEven ? "bg-brand-cream" : "bg-brand-pista-light/30"}
             `}
           >
             {/* Decorative divider for odd sections */}

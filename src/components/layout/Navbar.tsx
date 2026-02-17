@@ -72,8 +72,8 @@ export function Navbar() {
       <nav
         ref={navRef}
         className={`fixed top-10 left-0 w-full z-50 h-20 transition-all duration-500 ${scrolled || !isHome
-          ? "bg-brand-cream/80 backdrop-blur-md shadow-sm border-t-4 border-brand-accent"
-          : "bg-transparent border-t-4 border-transparent"
+          ? "bg-brand-cream/90 backdrop-blur-md shadow-sm border-t-[6px] border-brand-accent"
+          : "bg-transparent border-t-[6px] border-transparent"
           }`}
       >
         <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-10">

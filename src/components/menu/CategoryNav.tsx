@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { CATEGORIES } from "@/data/menu";
+import { slugify } from "@/utils/slugify";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -12,20 +13,29 @@ export function CategoryNav() {
     const navRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        let ticking = false;
+
         const handleScroll = () => {
-            // Find which section is currently in view
-            // This is a simple implementation; heavily debounced or intersection observer is better for perf
-            // but for this scale, checking rects is okay.
-            for (const cat of CATEGORIES) {
-                if (cat === "All") continue; // "All" isn't a section in the new layout
-                const section = document.getElementById(cat);
-                if (section) {
-                    const rect = section.getBoundingClientRect();
-                    if (rect.top >= 0 && rect.top < 300) {
-                        setActiveCategory(cat);
-                        break;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    // Find which section is currently in view
+                    for (const cat of CATEGORIES) {
+                        if (cat === "All") continue;
+                        const slug = slugify(cat);
+                        const section = document.getElementById(slug);
+                        if (section) {
+                            const rect = section.getBoundingClientRect();
+                            // Check if section is within the top-middle part of the viewport
+                            // Adjust logic: 150px offset (navbar height)
+                            if (rect.top >= 0 && rect.top < 350) {
+                                setActiveCategory(cat);
+                                break;
+                            }
+                        }
                     }
-                }
+                    ticking = false;
+                });
+                ticking = true;
             }
         };
 
@@ -35,9 +45,10 @@ export function CategoryNav() {
 
     const scrollToCategory = (cat: string) => {
         setActiveCategory(cat);
+        const slug = slugify(cat);
         gsap.to(window, {
             duration: 1,
-            scrollTo: { y: `#${cat}`, offsetY: 140 }, // Offset for navbar + category nav
+            scrollTo: { y: `#${slug}`, offsetY: 140 }, // Offset for navbar + category nav
             ease: "power2.out",
         });
     };
@@ -58,8 +69,8 @@ export function CategoryNav() {
                         onClick={() => scrollToCategory(cat)}
                         className={`shrink-0 rounded-full px-5 py-2 font-sans text-xs font-bold uppercase tracking-wider transition-all duration-300 border
               ${activeCategory === cat
-                                ? "bg-brand-cocoa text-brand-cream border-brand-cocoa scale-105 shadow-md"
-                                : "bg-white/50 text-brand-cocoa border-brand-cocoa/10 hover:border-brand-cocoa/40"
+                                ? "bg-brand-accent text-brand-cream border-brand-accent scale-105 shadow-md"
+                                : "bg-white/50 text-brand-cocoa border-brand-cocoa/10 hover:border-brand-accent/40"
                             }`}
                     >
                         {cat}
