@@ -16,6 +16,8 @@ const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ] as const;
 
+let isNavAnimated = false;
+
 /* ================================================================
    Navbar — Editorial Premium
    ================================================================ */
@@ -37,12 +39,19 @@ export function Navbar() {
   /* ── GSAP Entry animation ────────────────────────────────────── */
   useGSAP(
     () => {
-      gsap.from(navRef.current, {
-        y: -100,
-        opacity: 0,
-        duration: 1.2,
-        ease: "expo.out",
-      });
+      if (!isNavAnimated) {
+        gsap.from(navRef.current, {
+          y: -100,
+          opacity: 0,
+          duration: 1.2,
+          ease: "expo.out",
+          onComplete: () => {
+            isNavAnimated = true;
+          },
+        });
+      } else {
+        gsap.set(navRef.current, { y: 0, opacity: 1 });
+      }
     },
     { scope: navRef }
   );
