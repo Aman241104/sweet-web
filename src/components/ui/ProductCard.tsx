@@ -131,10 +131,10 @@ export function ProductCard({
       ref={cardRef}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      className={`group flex overflow-hidden rounded-[1.5rem]
+      className={`group flex overflow-hidden rounded-xl sm:rounded-[1.5rem]
                  shadow-[0_1px_3px_0_rgba(61,43,31,0.04),0_1px_2px_-1px_rgba(61,43,31,0.03)]
                  ${isSpotlight
-          ? "flex-col md:flex-row md:col-span-2 bg-brand-cocoa text-brand-cream"
+          ? "flex-col md:flex-row col-span-2 bg-brand-cocoa text-brand-cream"
           : "flex-col bg-white text-brand-cocoa"
         }
                  ${className}`}
@@ -142,7 +142,7 @@ export function ProductCard({
       {/* ── Image ──────────────────────────────────────────────── */}
       <div
         className={`relative overflow-hidden bg-brand-cocoa/5
-          ${isSpotlight ? "aspect-square md:aspect-auto md:w-1/2" : "aspect-square"}
+          ${isSpotlight ? "aspect-[4/3] sm:aspect-square md:aspect-auto md:w-1/2" : "aspect-[4/3] sm:aspect-square"}
         `}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -160,8 +160,8 @@ export function ProductCard({
       </div>
 
       {/* ── Content ────────────────────────────────────────────── */}
-      <div className={`flex flex-col p-5 ${isSpotlight ? "md:w-1/2 md:p-8 md:justify-center" : "flex-1"}`}>
-        <h3 className={`font-serif leading-snug ${isSpotlight ? "text-2xl md:text-3xl mb-2 text-brand-cream" : "text-xl text-brand-cocoa"}`}>
+      <div className={`flex flex-col p-3 sm:p-5 ${isSpotlight ? "md:w-1/2 md:p-8 md:justify-center" : "flex-1"}`}>
+        <h3 className={`font-serif leading-snug ${isSpotlight ? "text-xl sm:text-2xl md:text-3xl mb-2 text-brand-cream" : "text-base sm:text-xl text-brand-cocoa"}`}>
           {name}
         </h3>
 
@@ -173,13 +173,13 @@ export function ProductCard({
         </p>
 
         {/* Ingredient Pills */}
-        <div className="flex flex-wrap gap-2 mt-4 mb-2">
+        <div className="hidden sm:flex flex-wrap gap-2 mt-4 mb-2">
           {ingredients?.slice(0, 3).map((ing) => (
             <span
               key={ing}
               className={`text-[10px] uppercase tracking-wider px-2 py-1 rounded-md border ${isSpotlight
-                  ? 'border-brand-cream/20 text-brand-cream/70'
-                  : 'border-brand-cocoa/10 text-brand-cocoa/50'
+                ? 'border-brand-cream/20 text-brand-cream/70'
+                : 'border-brand-cocoa/10 text-brand-cocoa/50'
                 }`}
             >
               {ing}
@@ -195,12 +195,12 @@ export function ProductCard({
         )}
 
         {/* Spacer to push button to bottom or keep it tight */}
-        <div className="flex-1" />
+        <div className="hidden sm:block flex-1" />
 
         {/* Order button (Hidden initially, slides up) */}
         <button
           onClick={handleOrder}
-          className={`order-btn mt-6 flex w-full items-center justify-center gap-2 rounded-xl py-3
+          className={`order-btn mt-3 sm:mt-6 flex w-full items-center justify-center gap-2 rounded-xl py-2 sm:py-3
                      font-sans text-xs font-medium uppercase tracking-wider
                      transition-colors duration-300 border-b
                      ${isSpotlight

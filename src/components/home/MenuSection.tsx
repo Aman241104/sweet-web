@@ -53,7 +53,7 @@ export function MenuSection() {
           <div
             key={category}
             id={slug}
-            className={`menu-category-section relative py-20 px-6 lg:px-10 scroll-mt-32
+            className={`menu-category-section relative py-10 sm:py-20 px-4 sm:px-6 lg:px-10 scroll-mt-32
               ${isEven ? "bg-brand-cream" : "bg-brand-pista-light/30"}
             `}
           >
@@ -64,15 +64,15 @@ export function MenuSection() {
 
             <div className="mx-auto max-w-7xl">
               {/* ── Section Title (Editorial) ──────────────────── */}
-              <div className="relative mb-12 py-6 overflow-hidden">
+              <div className="relative mb-6 sm:mb-12 py-3 sm:py-6 overflow-hidden">
                 {/* Giant Watermark Number */}
-                <span className="absolute -top-10 -left-6 text-9xl font-serif font-bold text-brand-cocoa/5 select-none pointer-events-none z-0">
+                <span className="absolute -top-10 -left-4 sm:-left-6 text-7xl sm:text-9xl font-serif font-bold text-brand-cocoa/5 select-none pointer-events-none z-0">
                   0{index + 1}
                 </span>
 
                 {/* Actual Title */}
                 <div className="relative z-10 flex items-center gap-4">
-                  <h2 className="text-4xl md:text-5xl font-serif text-brand-cocoa">
+                  <h2 className="text-2xl sm:text-4xl md:text-5xl font-serif text-brand-cocoa">
                     {category}
                   </h2>
                   <span className="h-[1px] w-24 bg-brand-accent/50 hidden md:block"></span>
@@ -83,7 +83,7 @@ export function MenuSection() {
               </div>
 
               {/* ── Grid ───────────────────────────────────────── */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8">
                 {categoryProducts.map((product, i) => (
                   <ProductCard
                     key={product.id}
