@@ -12,7 +12,7 @@ import { SITE_CONFIG } from "@/config/site";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Menu", href: "/menu" },
-  { label: "Creating Cooking", href: "/classes" },
+  { label: "Creative Cooking", href: "/classes" },
   { label: "Our Story", href: "#our-story" },
   { label: "Contact", href: "#contact" },
 ] as const;

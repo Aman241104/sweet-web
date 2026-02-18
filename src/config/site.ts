@@ -1,7 +1,7 @@
 export const SITE_CONFIG = {
   name: "Gourmettazone by Kavita",
   logo: "/logo.png",
-  tagline: "Cake & Bakes | Creating Cooking With Kavita",
+  tagline: "Cake & Bakes | Creative Cooking With Kavita",
   whatsappNumber: "917574831119",
   whatsappDisplay: "+91 75748 31119",
   contactPerson: "Bharat Chavhan",
