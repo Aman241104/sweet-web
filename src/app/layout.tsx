@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
+import { MarqueeBar } from "@/components/ui/MarqueeBar";
 import { Preloader } from "@/components/ui/Preloader";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { ParallaxFloating } from "@/components/ui/ParallaxFloating";
@@ -88,6 +89,7 @@ export default function RootLayout({
         className={`${playfair.variable} ${inter.variable} ${greatVibes.variable} antialiased`}
       >
         <Preloader />
+        <MarqueeBar />
         <Navbar />
         <div
           className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.03] mix-blend-multiply"

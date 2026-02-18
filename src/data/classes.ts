@@ -1,0 +1,32 @@
+export const WORKSHOPS = [
+    {
+        id: "fondant-masterclass",
+        title: "Advanced Fondant Masterclass",
+        duration: "5 Days",
+        level: "Advanced",
+        price: "₹15,000",
+        image: "https://images.unsplash.com/photo-1535254973040-607b474cb50d?q=80&w=800",
+        description: "Master the art of draping, sharp edges, and hand-sculpted sugar figurines.",
+        curriculum: ["Ganache & Sharp Edges", "Fondant Draping", "Sugar Flowers", "Figurine Sculpting"],
+    },
+    {
+        id: "cream-sharp-edge",
+        title: "Designer Cream Cakes",
+        duration: "3 Days",
+        level: "Intermediate",
+        price: "₹5,000",
+        image: "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?q=80&w=800",
+        description: "Learn the secrets of perfectly sharp whipped cream cakes and modern piping techniques.",
+        curriculum: ["Whipping Consistency", "Ombre Effects", "Palette Knife Art", "Stacking Tiers"],
+    },
+    {
+        id: "macaron-mastery",
+        title: "Eggless Macaron Mastery",
+        duration: "1 Day",
+        level: "Beginner",
+        price: "₹1,500",
+        image: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?q=80&w=800",
+        description: "Crack the code to the perfect eggless French macaron with feet.",
+        curriculum: ["Aquafaba Merigue", "Macaronage Technique", "Ganache Fillings", "Baking Science"],
+    },
+];

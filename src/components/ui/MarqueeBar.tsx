@@ -16,8 +16,8 @@ export function MarqueeBar() {
 
         gsap.to(trackRef.current, {
             xPercent: -50,
-            ease: "none",
-            duration: 20,
+            ease: "linear",
+            duration: 40,
             repeat: -1,
         });
     }, []);

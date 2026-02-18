@@ -72,7 +72,7 @@ export function Footer() {
 
       <div className="relative mx-auto max-w-7xl">
         {/* ── 4-column grid ────────────────────────────────────── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-10 mb-16">
           {/* Column 1 — Brand */}
           <div className="footer-col">
             <Link href="/" className="block w-48 mb-6">
@@ -151,33 +151,6 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
-
-          {/* Column 4 — Newsletter */}
-          <div className="footer-col">
-            <h4 className="font-serif text-xl text-brand-cream tracking-wide mb-6">
-              Newsletter
-            </h4>
-            <p className="font-sans text-sm text-brand-cream/60 mb-5 leading-relaxed">
-              Get updates on seasonal specials and new creations.
-            </p>
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-3">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="w-full bg-transparent border-b border-brand-cream/30 px-0 py-3
-                           font-sans text-sm text-brand-cream placeholder:text-brand-cream/30
-                           outline-none transition-all duration-300 focus:border-brand-cream"
-              />
-              <button
-                type="submit"
-                className="inline-flex items-center gap-1.5 font-sans text-xs uppercase tracking-widest
-                           text-brand-cream/70 transition-all duration-300 hover:text-white"
-              >
-                Subscribe
-                <ArrowRight size={12} />
-              </button>
-            </form>
           </div>
         </div>
 
