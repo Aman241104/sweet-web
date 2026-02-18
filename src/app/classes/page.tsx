@@ -322,9 +322,14 @@ export default function ClassesPage() {
                                         </ul>
                                     </div>
 
-                                    <button className="w-full py-4 border border-brand-cocoa text-brand-cocoa font-bold uppercase tracking-widest hover:bg-brand-cocoa hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group-hover:gap-4">
-                                        View Syllabus <ArrowRight size={16} />
-                                    </button>
+                                    <a
+                                        href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(`Hi, I am interested in the "${workshop.title}" workshop. Please send me the syllabus and details.`)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-full py-4 border border-brand-cocoa text-brand-cocoa font-bold uppercase tracking-widest hover:bg-brand-cocoa hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group-hover:gap-4"
+                                    >
+                                        Enquire Now <MessageCircle size={16} />
+                                    </a>
                                 </div>
                             </div>
                         ))}
