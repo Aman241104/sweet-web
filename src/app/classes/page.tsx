@@ -210,7 +210,7 @@ export default function ClassesPage() {
                                         src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?q=80&w=800&auto=format&fit=crop"
                                         alt="Kavita Ma'am"
                                         fill
-                                        className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                        className="object-cover grayscale-0 lg:grayscale hover:grayscale-0 transition-all duration-700"
                                     />
                                 </div>
                                 <div className="text-center font-font-script text-2xl text-brand-cocoa pt-2">
@@ -344,7 +344,7 @@ export default function ClassesPage() {
                         {/* USP 1 */}
                         <div className="flex flex-col items-center text-center group">
                             <div className="usp-icon w-32 h-32 mb-8 relative flex items-center justify-center">
-                                <div className="absolute inset-0 bg-white rounded-full scale-0 group-hover:scale-100 transition-transform duration-500 opacity-50" />
+                                <div className="absolute inset-0 bg-white rounded-full scale-100 lg:scale-0 lg:group-hover:scale-100 transition-transform duration-500 opacity-50" />
                                 <SketchRollingPin className="w-full h-full text-brand-cocoa group-hover:rotate-12 transition-transform duration-500" strokeWidth={1} />
                             </div>
                             <h3 className="font-serif text-2xl text-brand-cocoa mb-4">100% Hands-on</h3>
@@ -356,7 +356,7 @@ export default function ClassesPage() {
                         {/* USP 2 */}
                         <div className="flex flex-col items-center text-center group">
                             <div className="usp-icon w-32 h-32 mb-8 relative flex items-center justify-center">
-                                <div className="absolute inset-0 bg-white rounded-full scale-0 group-hover:scale-100 transition-transform duration-500 opacity-50" />
+                                <div className="absolute inset-0 bg-white rounded-full scale-100 lg:scale-0 lg:group-hover:scale-100 transition-transform duration-500 opacity-50" />
                                 <SketchLeaf className="w-full h-full text-green-700/80 group-hover:scale-110 transition-transform duration-500" strokeWidth={1} />
                             </div>
                             <h3 className="font-serif text-2xl text-brand-cocoa mb-4">Certified Eggless</h3>
@@ -368,7 +368,7 @@ export default function ClassesPage() {
                         {/* USP 3 */}
                         <div className="flex flex-col items-center text-center group">
                             <div className="usp-icon w-32 h-32 mb-8 relative flex items-center justify-center">
-                                <div className="absolute inset-0 bg-white rounded-full scale-0 group-hover:scale-100 transition-transform duration-500 opacity-50" />
+                                <div className="absolute inset-0 bg-white rounded-full scale-100 lg:scale-0 lg:group-hover:scale-100 transition-transform duration-500 opacity-50" />
                                 <SketchWhisk className="w-full h-full text-brand-accent group-hover:-rotate-12 transition-transform duration-500" strokeWidth={1} />
                             </div>
                             <h3 className="font-serif text-2xl text-brand-cocoa mb-4">Personal Mentor</h3>
