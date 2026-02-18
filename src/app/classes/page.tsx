@@ -130,9 +130,9 @@ export default function ClassesPage() {
                             </div>
 
                             <h1 className="font-serif text-5xl lg:text-7xl/none text-brand-cocoa mb-6">
-                                Unleash Your <br />
+                                Creating Cooking With <br />
                                 <span className="relative inline-block text-brand-accent italic pr-4">
-                                    Inner Chef
+                                    Kavita
                                     <SketchDoodle className="absolute -bottom-2 left-0 w-full text-brand-accent-light -z-10" />
                                 </span>
                             </h1>
@@ -146,7 +146,7 @@ export default function ClassesPage() {
                                     href="#workshops"
                                     className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-cocoa text-brand-cream rounded-full font-medium tracking-wider uppercase hover:bg-brand-accent transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
                                 >
-                                    Explore Classes
+                                    Start Creating
                                     <ArrowRight size={18} />
                                 </Link>
                                 <a
@@ -268,7 +268,7 @@ export default function ClassesPage() {
                 <div className="container mx-auto px-6 max-w-7xl relative z-10">
                     <div className="text-center mb-20">
                         <span className="text-brand-accent font-bold tracking-widest uppercase text-sm mb-4 block">Education</span>
-                        <h2 className="font-serif text-5xl lg:text-6xl text-brand-cocoa mb-6">Upcoming Masterclasses</h2>
+                        <h2 className="font-serif text-5xl lg:text-6xl text-brand-cocoa mb-6">Creating Cooking With Kavita</h2>
                         <div className="w-24 h-1 bg-brand-cocoa mx-auto rounded-full"></div>
                     </div>
 
