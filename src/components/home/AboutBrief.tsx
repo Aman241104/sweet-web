@@ -114,14 +114,7 @@ export function AboutBrief() {
           </div>
 
           {/* CTA — text link style */}
-          <a
-            href="#menu"
-            className="mt-8 inline-block font-sans text-xs uppercase tracking-widest text-brand-cocoa
-                       border-b border-brand-cocoa pb-1
-                       transition-all duration-300 hover:text-brand-blush hover:border-brand-blush"
-          >
-            Read Our Full Journey
-          </a>
+
 
           {/* Founder's signature */}
           <p className="mt-10 font-serif italic text-3xl text-brand-cocoa/50 -rotate-3 select-none">

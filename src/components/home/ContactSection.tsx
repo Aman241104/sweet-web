@@ -4,7 +4,7 @@ import { useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { MessageCircle, MapPin, Clock } from "lucide-react";
+import { MessageCircle, MapPin, Clock, Mail } from "lucide-react";
 import { SketchArrow, SketchCookie } from "@/components/ui/HandDrawnIcons";
 import { SITE_CONFIG } from "@/config/site";
 
@@ -211,6 +211,10 @@ export function ContactSection() {
                   <p className="font-sans text-sm text-brand-cocoa leading-snug">
                     {SITE_CONFIG.address}<br />
                     <span className="font-semibold text-brand-cocoa/80">Contact: {SITE_CONFIG.contactPerson}</span>
+                    <br />
+                    <span className="block mt-1 text-brand-cocoa/80">
+                      {SITE_CONFIG.contactNumbers.join(" / ")}
+                    </span>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -218,6 +222,12 @@ export function ContactSection() {
                   <p className="font-sans text-sm text-brand-cocoa">
                     Open Daily: 9 am – 9 pm
                   </p>
+                </div>
+                <div className="flex items-start gap-3 mt-3">
+                  <Mail size={18} className="text-brand-blush mt-0.5 shrink-0" />
+                  <a href={`mailto:${SITE_CONFIG.email}`} className="font-sans text-sm text-brand-cocoa hover:text-brand-blush transition-colors">
+                    {SITE_CONFIG.email}
+                  </a>
                 </div>
               </div>
             </div>

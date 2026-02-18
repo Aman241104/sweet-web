@@ -134,20 +134,22 @@ export function Footer() {
             <ul className="space-y-3 font-sans text-sm text-brand-cream/70 tracking-wide leading-loose">
               <li className="font-semibold text-brand-cream">{SITE_CONFIG.contactPerson}</li>
               <li>{SITE_CONFIG.address}</li>
+              {SITE_CONFIG.contactNumbers.map((number) => (
+                <li key={number}>
+                  <a
+                    href={`tel:${number.replace(/\s/g, "")}`}
+                    className="inline-block transition-all duration-300 hover:text-white hover:translate-x-1"
+                  >
+                    {number}
+                  </a>
+                </li>
+              ))}
               <li>
                 <a
-                  href={`tel:${SITE_CONFIG.whatsappNumber}`}
+                  href={`mailto:${SITE_CONFIG.email}`}
                   className="inline-block transition-all duration-300 hover:text-white hover:translate-x-1"
                 >
-                  {SITE_CONFIG.whatsappDisplay}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:hello@gourmettazone.com"
-                  className="inline-block transition-all duration-300 hover:text-white hover:translate-x-1"
-                >
-                  hello@gourmettazone.com
+                  {SITE_CONFIG.email}
                 </a>
               </li>
             </ul>

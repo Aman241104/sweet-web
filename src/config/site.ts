@@ -9,4 +9,6 @@ export const SITE_CONFIG = {
   instagram: "@gourmettazone",
   instagramUrl: "https://instagram.com/gourmettazone",
   instagramCooking: "@creativecookingwithkavitaa",
+  email: "Gourmettazone@gmail.com",
+  contactNumbers: ["+91 826429 2079", "+91 757483 1119"],
 };
