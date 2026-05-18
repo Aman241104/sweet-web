@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -58,12 +59,12 @@ export function AboutBrief() {
         {/* ── Image column ──────────────────────────────────── */}
         <div className="about-img relative">
           <div className="relative aspect-4/5 mask-arch overflow-hidden shadow-xl">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={ABOUT_IMAGE}
               alt="Kavita Chauhan - Head Chef and Founder"
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="lazy"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
             {/* Warm overlay */}
             <div className="absolute inset-0 bg-brand-cocoa/10 mix-blend-multiply pointer-events-none" />
@@ -99,7 +100,7 @@ export function AboutBrief() {
 
           <div className="space-y-4 font-sans text-base text-brand-charcoal/90 leading-loose max-w-lg">
             <p>
-              Founded in 2015, {SITE_CONFIG.name} began in a small home kitchen
+              Founded in 2015, {SITE_CONFIG.name} began in a small home kitchen in <strong>Ahmedabad</strong>
               with a single mission: to craft desserts that evoke emotion.
               What started as weekend batches for friends has blossomed into a
               beloved boutique bakery.

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, MessageCircle, Instagram } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { SITE_CONFIG } from "@/config/site";
@@ -84,13 +85,13 @@ export function Navbar() {
             href={isHome ? "#home" : "/"}
             className="flex items-center gap-3 select-none"
           >
-            {/* Logo Image */}
             <div className="relative h-12 w-12 shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={SITE_CONFIG.logo}
                 alt={SITE_CONFIG.name}
-                className="h-full w-full object-contain"
+                fill
+                className="object-contain"
+                sizes="48px"
               />
             </div>
             {/* Text Logo */}

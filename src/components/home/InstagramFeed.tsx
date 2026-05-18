@@ -101,7 +101,7 @@ export function InstagramFeed() {
             {SITE_CONFIG.instagram}
           </a>
           <p className="mt-2 font-sans text-xs text-brand-charcoal/40 tracking-wide">
-            Tag us in your sweet moments{" "}
+            Tag us in your sweet moments in <strong>Ahmedabad</strong>{" "}
             <span className="font-medium text-brand-charcoal/60">#GourmetttazoneLove</span>
           </p>
         </div>

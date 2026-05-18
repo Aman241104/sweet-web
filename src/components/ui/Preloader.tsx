@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SITE_CONFIG } from "@/config/site";
@@ -53,12 +54,13 @@ export function Preloader() {
         ref={logoRef}
         className="opacity-0 text-center"
       >
-        <div className="w-64 mx-auto">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div className="w-64 h-32 mx-auto relative">
+          <Image
             src={SITE_CONFIG.logo}
             alt={SITE_CONFIG.name}
-            className="w-full h-auto object-contain"
+            fill
+            className="object-contain"
+            priority
           />
         </div>
         <div className="mt-4 h-px w-12 bg-brand-blush/40 mx-auto" />

@@ -34,24 +34,30 @@ const greatVibes = Great_Vibes({
 /* ── SEO & Open Graph Metadata ──────────────────────────────────── */
 export const metadata: Metadata = {
   metadataBase: new URL("https://gourmettazone.com"),
-  title: `${SITE_CONFIG.name} | ${SITE_CONFIG.tagline}`,
+  title: {
+    default: `${SITE_CONFIG.name} | ${SITE_CONFIG.tagline}`,
+    template: `%s | ${SITE_CONFIG.name}`,
+  },
   description:
-    "Order exotic brownies, bespoke cakes, and healthy cookies online. Freshly baked by Kavita and delivered in Ahmedabad. Chat with us on WhatsApp to customize.",
+    "Gourmettazone by Kavita offers premium artisanal cakes, exotic brownies, and healthy cookies in Ahmedabad. Best bakery in Vastrapur for custom wedding & birthday cakes. Order online via WhatsApp.",
   keywords: [
-    "Bakery",
-    "Custom Cakes",
-    "Wedding Cakes",
-    "Eggless Desserts",
-    "Cake Delivery",
-    "Designer Pastries",
-    "Birthday Cakes",
-    "Cupcakes",
+    "Bakery in Ahmedabad",
+    "Custom Cakes Ahmedabad",
+    "Best Cakes in Vastrapur",
+    "Wedding Cakes Ahmedabad",
+    "Eggless Cakes Ahmedabad",
+    "Birthday Cake Delivery Ahmedabad",
+    "Artisanal Bakery Gujarat",
+    "Healthy Cookies Ahmedabad",
+    "Designer Cakes Satellite Ahmedabad",
+    "Bespoke Brownies Bopal",
   ],
   authors: [{ name: SITE_CONFIG.name }],
+  category: "Food & Beverage",
   openGraph: {
-    title: "Craving Something Sweet? 🍰",
+    title: `Premium Cakes & Bakes in Ahmedabad | ${SITE_CONFIG.name}`,
     description:
-      `Explore ${SITE_CONFIG.name}'s premium menu. Click to view our latest creations.`,
+      `Order artisanal cakes, exotic brownies, and healthy cookies from ${SITE_CONFIG.name}. Freshly baked and delivered across Ahmedabad.`,
     url: "https://gourmettazone.com",
     siteName: SITE_CONFIG.name,
     images: [
@@ -59,7 +65,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`,
+        alt: `${SITE_CONFIG.name} — Premium Bakery in Ahmedabad`,
       },
     ],
     locale: "en_IN",
@@ -67,14 +73,24 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_CONFIG.name} | ${SITE_CONFIG.tagline}`,
+    title: `${SITE_CONFIG.name} | Best Bakery in Ahmedabad`,
     description:
-      "Order exotic brownies, bespoke cakes, and healthy cookies online.",
+      "Order exotic brownies, bespoke cakes, and healthy cookies online. Delivered in Ahmedabad.",
     images: ["/og-image.jpg"],
+  },
+  alternates: {
+    canonical: "https://gourmettazone.com",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -83,8 +99,61 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Bakery",
+    "name": SITE_CONFIG.name,
+    "image": "https://gourmettazone.com/logo.png",
+    "@id": "https://gourmettazone.com",
+    "url": "https://gourmettazone.com",
+    "telephone": SITE_CONFIG.whatsappDisplay,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": SITE_CONFIG.address,
+      "addressLocality": "Ahmedabad",
+      "postalCode": SITE_CONFIG.zipCode,
+      "addressRegion": "Gujarat",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 23.0360,
+      "longitude": 72.5284
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "09:00",
+      "closes": "21:00"
+    },
+    "sameAs": [
+      SITE_CONFIG.instagramUrl,
+      "https://www.facebook.com/gourmettazone"
+    ],
+    "priceRange": "₹₹",
+    "servesCuisine": "Bakery, Desserts, Cakes",
+    "areaServed": SITE_CONFIG.neighborhoods.map(n => ({
+      "@type": "City",
+      "name": n
+    }))
+  };
+
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${playfair.variable} ${inter.variable} ${greatVibes.variable} antialiased`}
       >

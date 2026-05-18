@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/HandDrawnIcons";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 /* ── Hero image ─────────────────────────────────────────────────── */
 const HERO_IMAGE = "/products/rasmalai_cake.png";
@@ -145,12 +146,13 @@ export function Hero() {
             <div className="hero-mobile-img relative w-full aspect-4/5 mask-arch overflow-hidden
                             bg-brand-cocoa/10 border border-white/40
                             shadow-[0_20px_50px_-12px_rgba(61,43,31,0.15)]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={HERO_IMAGE}
                 alt="Artisan minimalist cake"
+                fill
                 className="absolute inset-0 h-full w-full object-cover transform hover:scale-105 transition-transform duration-700 ease-out"
-                loading="eager"
+                priority
+                sizes="100vw"
               />
               {/* Backup Gradient */}
               <div className="absolute inset-0 bg-gradient-to-tr from-brand-cocoa/5 to-transparent -z-10" />
@@ -159,8 +161,8 @@ export function Hero() {
 
           <div ref={subtextRef} className="mt-8 lg:mt-10">
             <p className="font-sans text-lg md:text-xl text-brand-charcoal/80 max-w-md leading-relaxed">
-              Bespoke artisan cakes delivered to your doorstep. Every slice
-              tells a story of quality and passion.
+              Bespoke artisan cakes and gourmet brownies delivered fresh to your doorstep across <strong>Ahmedabad</strong>. 
+              Every slice tells a story of quality and passion.
             </p>
 
             {/* CTAs */}
@@ -203,12 +205,13 @@ export function Hero() {
               ref={imageWrapRef}
               className="relative w-full h-full mask-arch overflow-hidden shadow-[0_20px_50px_-12px_rgba(61,43,31,0.15)] border border-white/40"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={HERO_IMAGE}
                 alt="Artisan minimalist cake"
+                fill
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700 ease-out"
-                loading="eager"
+                priority
+                sizes="50vw"
               />
 
               {/* Backup Gradient (In case image fails, this shows instead of white box) */}

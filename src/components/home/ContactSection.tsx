@@ -104,7 +104,7 @@ export function ContactSection() {
             Let&rsquo;s Talk Cake.
           </h2>
           <p className="mt-4 font-sans text-base text-brand-charcoal/60 max-w-lg mx-auto">
-            Have a vision for your event? Fill out the details below and
+            Have a vision for your event in Ahmedabad? From Vastrapur to Bopal, we deliver happiness. Fill out the details below and
             we&rsquo;ll start sketching.
           </p>
         </div>

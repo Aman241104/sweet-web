@@ -2,6 +2,7 @@
 
 import { useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import gsap from "gsap";
 import { MessageCircle } from "lucide-react";
 import { SITE_CONFIG } from "@/config/site";
@@ -145,12 +146,12 @@ export function ProductCard({
           ${isSpotlight ? "aspect-[4/3] sm:aspect-square md:aspect-auto md:w-1/2" : "aspect-[4/3] sm:aspect-square"}
         `}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={image}
           alt={name}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 animate-reveal opacity-0 scale-110"
-          loading="lazy"
+          fill
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 animate-reveal opacity-0 scale-110"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
         {badge && (
           <span className="absolute left-3 top-3 rounded-full bg-brand-accent px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white shadow-sm z-10">

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -76,13 +77,13 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-10 mb-16">
           {/* Column 1 — Brand */}
           <div className="footer-col">
-            <Link href="/" className="block w-48 mb-6">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+            <Link href="/" className="block w-48 mb-6 relative h-16">
+              <Image
                 src={SITE_CONFIG.logo}
                 alt={SITE_CONFIG.name}
-                // Removed filters to show original logo color (red/white)
-                className="h-auto w-full object-contain"
+                fill
+                className="object-contain object-left"
+                sizes="192px"
               />
             </Link>
             <p className="mt-4 font-sans text-sm text-brand-cream/60 leading-relaxed max-w-[240px]">

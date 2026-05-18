@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
+import Image from "next/image";
 import { SketchDoodle, SketchLeaf, SketchSparkle } from "@/components/ui/HandDrawnIcons";
 import { slugify } from "@/utils/slugify";
 
@@ -98,7 +99,7 @@ export function CategoryGrid() {
           Explore Our Creations
         </h2>
         <p className="mt-4 font-sans text-base sm:text-lg text-brand-charcoal/60 max-w-xl mx-auto leading-relaxed">
-          Handcrafted with love, from classic pastries to designer masterpieces.
+          The best selection of eggless cakes and desserts in <strong>Ahmedabad</strong>. Handcrafted with love, from classic pastries to designer masterpieces.
         </p>
       </div>
 
@@ -164,12 +165,12 @@ function CategoryCard({
     >
       {/* Image */}
       <div className="relative w-full aspect-square rounded-3xl overflow-hidden bg-brand-cocoa/5">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={image}
           alt={title}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          loading="lazy"
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
       </div>
 
