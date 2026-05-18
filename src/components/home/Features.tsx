@@ -12,22 +12,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FEATURES = [
   {
-    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=800",
+    image: "/products/dutch_truffle_cake.png",
     title: "Customized Cakes",
     desc: "Bespoke designs for weddings, birthdays, and special occasions.",
   },
   {
-    image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=800",
+    image: "/products/healthy_seeds_cookies.png",
     title: "Healthy Choice",
     desc: "Healthy cookies, whole wheat brownies, and guilt-free indulgences.",
   },
   {
-    image: "https://images.unsplash.com/photo-1512224538965-06ab4f068770?auto=format&fit=crop&q=80&w=800",
+    image: "/products/kunafa_bar.png",
     title: "Corporate Gifting",
     desc: "Premium assorted chocolates and gift hampers for your business needs.",
   },
   {
-    image: "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&q=80&w=800",
+    image: "/products/donuts.png",
     title: "Wide Variety",
     desc: "From cheesecakes and brownies to savory puffs and exotic pastries.",
   },

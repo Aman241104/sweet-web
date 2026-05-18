@@ -12,27 +12,33 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FEED = [
   {
-    src: "https://images.unsplash.com/photo-1587668178277-295251f900ce?q=80&w=500&auto=format&fit=crop",
+    src: "/products/rasmalai_cake.png",
+    url: "https://www.instagram.com/reel/DX7DE_0hgRn/",
     likes: "1.2k",
   },
   {
-    src: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?q=80&w=500&auto=format&fit=crop",
+    src: "/products/biscoff_cake.png",
+    url: "https://www.instagram.com/reel/DX4ywvDOWOm/",
     likes: "987",
   },
   {
-    src: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=500&auto=format&fit=crop",
+    src: "/products/hazelnut_cake.png",
+    url: "https://www.instagram.com/reel/DX18xhYsdcT/",
     likes: "1.5k",
   },
   {
-    src: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=500&auto=format&fit=crop",
+    src: "/products/burnt_basque_cheesecake_new.png",
+    url: "https://www.instagram.com/reel/DXmFym6DErV/",
     likes: "2.1k",
   },
   {
-    src: "https://images.unsplash.com/photo-1562440499-64c9a111f713?q=80&w=500&auto=format&fit=crop",
+    src: "/products/kunafa_bar.png",
+    url: "https://www.instagram.com/reel/DXa29pJDOIc/",
     likes: "856",
   },
   {
-    src: "https://images.unsplash.com/photo-1535254973040-607b474cb50d?q=80&w=500&auto=format&fit=crop",
+    src: "/products/donuts.png",
+    url: "https://www.instagram.com/reel/DXKOsOxDLqf/",
     likes: "1.8k",
   },
 ];
@@ -104,7 +110,7 @@ export function InstagramFeed() {
           {FEED.map((item, i) => (
             <a
               key={i}
-              href={SITE_CONFIG.instagramUrl}
+              href={item.url}
               target="_blank"
               rel="noopener noreferrer"
               className="ig-item group relative aspect-square overflow-hidden rounded-xl bg-brand-cocoa/5"

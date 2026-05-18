@@ -14,43 +14,35 @@ gsap.registerPlugin(ScrollTrigger);
 const CATEGORIES = [
   {
     title: "Classic Cakes",
-    image:
-      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800",
+    image: "/products/black_forest.png",
   },
   {
     title: "Signature Cakes",
-    image:
-      "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=800",
+    image: "/products/hazelnut_cake.png",
   },
   {
     title: "Fusion Cakes",
-    image:
-      "https://images.unsplash.com/photo-1535141192574-5d4897c12636?q=80&w=800",
+    image: "/products/rasmalai_cake.png",
   },
   {
     title: "Cheesecakes",
-    image:
-      "https://images.unsplash.com/photo-1567327613485-fbc7bf196198?q=80&w=800",
+    image: "/products/blueberry_cheesecake_new.png",
   },
   {
     title: "Brownies",
-    image:
-      "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=800",
+    image: "/products/walnut_fudge_brownie_new.png",
   },
   {
     title: "Healthy Cookies",
-    image:
-      "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=800",
+    image: "/products/healthy_seeds_cookies.png",
   },
   {
     title: "Pastries & Puffs",
-    image:
-      "https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800",
+    image: "/products/chinese_puff.png",
   },
   {
     title: "Chocolates",
-    image:
-      "https://images.unsplash.com/photo-1548907040-4baa42d10919?q=80&w=800",
+    image: "/products/kunafa_bar.png",
   },
 ] as const;
 

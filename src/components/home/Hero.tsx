@@ -15,8 +15,7 @@ import {
 import { ArrowRight, Leaf } from "lucide-react";
 
 /* ── Hero image ─────────────────────────────────────────────────── */
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000&auto=format&fit=crop";
+const HERO_IMAGE = "/products/rasmalai_cake.png";
 
 /* ================================================================
    Hero Section — Editorial Premium

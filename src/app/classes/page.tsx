@@ -179,8 +179,8 @@ export default function ClassesPage() {
                                 {/* Main Image Blob */}
                                 <div className="w-full h-full relative z-20 overflow-hidden shadow-2xl bg-brand-cocoa/10" style={{ borderRadius: "40% 60% 70% 30% / 40% 50% 60% 50%" }}>
                                     <Image
-                                        src="/products/cooking_classes_hero.png"
-                                        alt="Baking Workshop"
+                                        src="/products/rasmalai_cake.png"
+                                        alt="Signature Rasmalai Cake"
                                         fill
                                         priority
                                         className="object-cover scale-110 hover:scale-100 transition-transform duration-[2s] ease-in-out"
@@ -392,8 +392,8 @@ export default function ClassesPage() {
                 {/* Background Image with Parallax feeling */}
                 <div className="absolute inset-0 opacity-20">
                     <Image
-                        src="/products/cooking_classes_cta.png"
-                        alt="Dark Chocolate Background"
+                        src="/products/dutch_truffle_cake.png"
+                        alt="Dark Chocolate Truffle Background"
                         fill
                         className="object-cover"
                     />
