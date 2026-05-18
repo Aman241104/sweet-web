@@ -179,7 +179,7 @@ export default function ClassesPage() {
                                 {/* Main Image Blob */}
                                 <div className="w-full h-full relative z-20 overflow-hidden shadow-2xl bg-brand-cocoa/10" style={{ borderRadius: "40% 60% 70% 30% / 40% 50% 60% 50%" }}>
                                     <Image
-                                        src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=1200"
+                                        src="/products/cooking_classes_hero.png"
                                         alt="Baking Workshop"
                                         fill
                                         priority
@@ -392,7 +392,7 @@ export default function ClassesPage() {
                 {/* Background Image with Parallax feeling */}
                 <div className="absolute inset-0 opacity-20">
                     <Image
-                        src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=2000"
+                        src="/products/cooking_classes_cta.png"
                         alt="Dark Chocolate Background"
                         fill
                         className="object-cover"
