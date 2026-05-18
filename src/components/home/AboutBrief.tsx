@@ -9,8 +9,7 @@ import { SITE_CONFIG } from "@/config/site";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ABOUT_IMAGE =
-  "https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=1000&auto=format&fit=crop";
+const ABOUT_IMAGE = "/kavita.png";
 
 export function AboutBrief() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -62,7 +61,7 @@ export function AboutBrief() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={ABOUT_IMAGE}
-              alt="Baker carefully piping frosting on an artisan cake in a warm kitchen"
+              alt="Kavita Chauhan - Head Chef and Founder"
               className="absolute inset-0 h-full w-full object-cover"
               loading="lazy"
             />
@@ -118,7 +117,7 @@ export function AboutBrief() {
 
           {/* Founder's signature */}
           <p className="mt-10 font-serif italic text-3xl text-brand-cocoa/50 -rotate-3 select-none">
-            The {SITE_CONFIG.name} Team
+            Kavita Chauhan
           </p>
         </div>
       </div>

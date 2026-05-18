@@ -4,7 +4,9 @@ import { useRef, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Link from "next/link";
 import { SketchDoodle, SketchLeaf, SketchSparkle } from "@/components/ui/HandDrawnIcons";
+import { slugify } from "@/utils/slugify";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,7 +25,7 @@ const CATEGORIES = [
   {
     title: "Fusion Cakes",
     image:
-      "https://images.unsplash.com/photo-1626803775151-61d756612fcd?q=80&w=800",
+      "https://images.unsplash.com/photo-1535141192574-5d4897c12636?q=80&w=800",
   },
   {
     title: "Cheesecakes",
@@ -38,7 +40,7 @@ const CATEGORIES = [
   {
     title: "Healthy Cookies",
     image:
-      "https://images.unsplash.com/photo-1499636138143-bd649043ea52?q=80&w=800",
+      "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=800",
   },
   {
     title: "Pastries & Puffs",
@@ -114,7 +116,7 @@ export function CategoryGrid() {
         className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 [&>*:nth-child(even)]:lg:translate-y-12"
       >
         {CATEGORIES.map((cat) => (
-          <CategoryCard key={cat.title} title={cat.title} image={cat.image} />
+          <CategoryCard key={cat.title} title={cat.title} image={cat.image} href={`/menu/${slugify(cat.title)}`} />
         ))}
       </div>
     </section>
@@ -127,11 +129,13 @@ export function CategoryGrid() {
 function CategoryCard({
   title,
   image,
+  href,
 }: {
   title: string;
   image: string;
+  href: string;
 }) {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
 
   /* ── GSAP hover lift + shadow ────────────────────────────────── */
   const handleEnter = useCallback(() => {
@@ -157,11 +161,12 @@ function CategoryCard({
   }, []);
 
   return (
-    <div
+    <Link
+      href={href}
       ref={cardRef}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      className="cat-card group cursor-pointer rounded-[2.5rem] bg-white p-5 pb-6
+      className="cat-card group cursor-pointer rounded-[2.5rem] bg-white p-5 pb-6 block
                  shadow-[0_1px_3px_0_rgba(61,43,31,0.04),0_1px_2px_-1px_rgba(61,43,31,0.03)]
                  transition-colors duration-300"
     >
@@ -177,9 +182,9 @@ function CategoryCard({
       </div>
 
       {/* Title */}
-      <p className="mt-5 text-center font-serif text-sm font-bold tracking-wider text-brand-cocoa">
+      <p className="mt-5 text-center font-serif text-base md:text-lg font-bold tracking-wider text-brand-cocoa">
         {title}
       </p>
-    </div>
+    </Link>
   );
 }

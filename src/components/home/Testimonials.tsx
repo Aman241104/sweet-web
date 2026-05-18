@@ -6,46 +6,46 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Star } from "lucide-react";
 import { SketchCupcake, SketchTeapot } from "@/components/ui/HandDrawnIcons";
-import { SITE_CONFIG } from "@/config/site";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const REVIEWS = [
   {
-    quote:
-      `Our wedding cake was an absolute masterpiece. Every guest was asking about it — ${SITE_CONFIG.name} made our day unforgettable!`,
-    name: "Priya & Arjun",
-    context: "Wedding Cake",
-    date: "Jan 2025",
+    quote: "Best cake shop I have visited. Cake is awesome in taste and design. 10/10.The owner is so polite. Other desserts are also amazing like cheesecake, brownie.",
+    name: "AJAY BHAGORA",
+    context: "Google Review",
+    date: "4 months ago",
   },
   {
-    quote:
-      "Ordered a surprise birthday cake for my daughter. The look on her face was priceless. Fluffy, delicious, and stunning!",
-    name: "Sneha M.",
-    context: "Birthday Cake",
-    date: "Nov 2024",
+    quote: "I ordered a customised cake for for my sons birthday to Gourmetttazone. I got best cake in taste and design. I will highly recommend the Gourmetttazone, his address is GF 55, Satyam mall near Cross Ahmedabad.",
+    name: "Hitesh Parmar",
+    context: "Google Review",
+    date: "3 months ago",
   },
   {
-    quote:
-      "Best cupcakes in the city, hands down. The salted caramel swirl is dangerously addictive. We order every weekend now.",
-    name: "Rahul K.",
-    context: "Cupcakes",
-    date: "Dec 2024",
+    quote: "Best Cake shop in vastrapur. Cheesecake is awesome. Walnut brownie is yummy",
+    name: "Chauhan Sumit",
+    context: "Google Review",
+    date: "2 months ago",
   },
   {
-    quote:
-      "The eggless chocolate truffle was so rich no one believed it was eggless. Incredible quality and gorgeous presentation.",
-    name: "Ananya S.",
-    context: "Eggless Cake",
-    date: "Feb 2025",
+    quote: "I got best customised cake from Gourmetttazone. Yaha ki hot walnut brownie to amazing h",
+    name: "Thakkar Dhruv",
+    context: "Google Review",
+    date: "2 months ago",
   },
   {
-    quote:
-      "From the first consultation to delivery, the experience was premium. Our corporate event dessert table was a hit!",
-    name: "Vikram J.",
-    context: "Corporate Order",
-    date: "Oct 2024",
+    quote: "Triple strawberry chocolate at just ₹99 it unbelievable. Quality is superb and fresh. Walnut brownie is awesome",
+    name: "Mohit Chouhan",
+    context: "Google Review",
+    date: "4 months ago",
   },
+  {
+    quote: "I got Best cheesecake from gourmettazone. Yaha ki walnut brownie to awesome h",
+    name: "Aman Tomar",
+    context: "Google Review",
+    date: "2 months ago",
+  }
 ];
 
 export function Testimonials() {

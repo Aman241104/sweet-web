@@ -4,7 +4,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X, MessageCircle, Instagram } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { SITE_CONFIG } from "@/config/site";
 
@@ -12,7 +12,7 @@ import { SITE_CONFIG } from "@/config/site";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Menu", href: "/menu" },
-  { label: "Creative Cooking", href: "/classes" },
+  { label: "Cooking Classes", href: "/classes" },
   { label: "Our Story", href: "#our-story" },
   { label: "Contact", href: "#contact" },
 ] as const;
@@ -45,6 +45,7 @@ export function Navbar() {
           y: -100,
           opacity: 0,
           duration: 1.2,
+          delay: 2.4,
           ease: "expo.out",
           onComplete: () => {
             isNavAnimated = true;
@@ -72,7 +73,7 @@ export function Navbar() {
     <>
       <nav
         ref={navRef}
-        className={`fixed top-10 left-0 w-full z-50 h-20 transition-all duration-500 ${scrolled || !isHome
+        className={`fixed top-10 left-0 w-full z-50 h-20 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ${scrolled || !isHome
           ? "bg-brand-cream/90 backdrop-blur-md shadow-sm border-t-[6px] border-brand-accent"
           : "bg-transparent border-t-[6px] border-transparent"
           }`}
@@ -118,25 +119,49 @@ export function Navbar() {
           </ul>
 
           {/* ── Desktop CTA ──────────────────────────────────── */}
-          <a
-            ref={ctaRef}
-            href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=Hi! I have a query about your cakes.`}
-            target="_blank"
-            rel="noopener noreferrer"
-            onMouseEnter={handleCtaEnter}
-            onMouseLeave={handleCtaLeave}
-            className="hidden md:inline-flex items-center gap-2 rounded-full
-                       border-[1.5px] border-brand-cocoa px-6 py-2.5
-                       text-[13px] font-medium tracking-[0.15em] uppercase text-brand-cocoa
-                       transition-all duration-300
-                       hover:bg-brand-cocoa hover:text-brand-cream"
-          >
-            <MessageCircle size={14} />
-            WhatsApp Inquiry
-          </a>
+          <div className="hidden md:flex items-center gap-3">
+            <a
+              href={SITE_CONFIG.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="grid h-[42px] w-[42px] place-items-center rounded-full
+                         border-[1.5px] border-brand-cocoa text-brand-cocoa
+                         transition-colors duration-300 hover:bg-brand-cocoa hover:text-brand-cream"
+              aria-label="Instagram"
+            >
+              <Instagram size={16} />
+            </a>
+            <a
+              ref={ctaRef}
+              href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=Hi! I have a query about your cakes.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={handleCtaEnter}
+              onMouseLeave={handleCtaLeave}
+              className="inline-flex items-center gap-2 rounded-full
+                         border-[1.5px] border-brand-cocoa px-6 py-2.5
+                         text-[13px] font-medium tracking-[0.15em] uppercase text-brand-cocoa
+                         transition-all duration-300
+                         hover:bg-brand-cocoa hover:text-brand-cream"
+            >
+              <MessageCircle size={14} />
+              WhatsApp Inquiry
+            </a>
+          </div>
 
           {/* ── Mobile buttons ───────────────────────────────── */}
-          <div className="flex items-center gap-3 md:hidden">
+          <div className="flex items-center gap-2 md:hidden">
+            <a
+              href={SITE_CONFIG.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="grid h-10 w-10 place-items-center rounded-full
+                         border-[1.5px] border-brand-cocoa text-brand-cocoa
+                         transition-colors duration-300 hover:bg-brand-cocoa hover:text-brand-cream"
+              aria-label="Instagram"
+            >
+              <Instagram size={16} />
+            </a>
             <a
               href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=Hi! I have a query about your cakes.`}
               target="_blank"
@@ -233,7 +258,21 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
           </li>
         ))}
 
-        <li className="mt-4">
+        <li className="mt-4 flex flex-col items-center gap-4">
+          <a
+            href={SITE_CONFIG.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onClose}
+            className="inline-flex items-center gap-2 rounded-full
+                       border-[1.5px] border-brand-cocoa px-7 py-3
+                       text-sm font-medium tracking-[0.15em] uppercase text-brand-cocoa
+                       transition-colors duration-300
+                       hover:bg-brand-cocoa hover:text-brand-cream"
+          >
+            <Instagram size={16} />
+            Follow on Instagram
+          </a>
           <a
             href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=Hi! I have a query about your cakes.`}
             target="_blank"

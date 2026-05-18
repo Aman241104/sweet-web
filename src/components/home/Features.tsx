@@ -4,7 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Wheat, Leaf, Palette, Truck } from "lucide-react";
+import Image from "next/image";
 import { WheatStalk } from "@/components/ui/Decorations";
 import { SketchRollingPin, SketchCookie } from "@/components/ui/HandDrawnIcons";
 
@@ -12,22 +12,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FEATURES = [
   {
-    icon: Wheat,
+    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=800",
     title: "Customized Cakes",
     desc: "Bespoke designs for weddings, birthdays, and special occasions.",
   },
   {
-    icon: Leaf,
+    image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=800",
     title: "Healthy Choice",
     desc: "Healthy cookies, whole wheat brownies, and guilt-free indulgences.",
   },
   {
-    icon: Palette,
+    image: "https://images.unsplash.com/photo-1512224538965-06ab4f068770?auto=format&fit=crop&q=80&w=800",
     title: "Corporate Gifting",
     desc: "Premium assorted chocolates and gift hampers for your business needs.",
   },
   {
-    icon: Truck,
+    image: "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&q=80&w=800",
     title: "Wide Variety",
     desc: "From cheesecakes and brownies to savory puffs and exotic pastries.",
   },
@@ -85,15 +85,20 @@ export function Features() {
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className="feat-card bg-white rounded-[2rem] p-8 shadow-sm
-                         text-center flex flex-col items-center
+              className="feat-card bg-white rounded-[2rem] p-6 shadow-sm
+                         text-center flex flex-col items-center group
                          transition-all duration-300 ease-out
                          hover:-translate-y-1
                          hover:shadow-[0_10px_30px_-10px_rgba(61,43,31,0.1)]"
             >
-              {/* Anchored icon */}
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-cream text-brand-cocoa">
-                <f.icon size={32} strokeWidth={1.5} />
+              {/* Photo Image */}
+              <div className="mb-6 w-full aspect-[4/3] relative rounded-[1.25rem] overflow-hidden">
+                <Image
+                  src={f.image}
+                  alt={f.title}
+                  fill
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
               </div>
 
               <h3 className="font-serif text-xl text-brand-cocoa mb-2">

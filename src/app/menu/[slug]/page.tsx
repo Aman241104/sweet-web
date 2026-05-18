@@ -16,27 +16,118 @@ import {
 } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { MENU_ITEMS } from "@/data/menu";
+import { MENU_ITEMS, CATEGORIES, MenuItem } from "@/data/menu";
 import { SITE_CONFIG } from "@/config/site";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { MarqueeBar } from "@/components/ui/MarqueeBar";
 import { Navbar } from "@/components/layout/Navbar";
+import { slugify } from "@/utils/slugify";
 
-export default function ProductDetailPage() {
-  const { slug } = useParams();
+export default function DynamicMenuPage() {
+  const params = useParams();
+  const slug = params?.slug as string;
+
+  // Check if it's a category
+  const categoryName = CATEGORIES.find((c) => slugify(c) === slug);
+  if (categoryName) {
+    return <CategoryDetailPage categoryName={categoryName} />;
+  }
+
+  // Check if it's a product
+  const product = MENU_ITEMS.find((p) => p.id === slug);
+  if (product) {
+    return <ProductDetailPage product={product} />;
+  }
+
+  // Not found
+  return (
+    <div className="min-h-screen bg-brand-cream flex flex-col items-center justify-center p-6 text-center">
+      <h1 className="font-serif text-4xl text-brand-cocoa mb-4">Item Not Found</h1>
+      <p className="font-sans text-brand-charcoal/60 mb-8 text-lg">
+        The sweet treat you&rsquo;re looking for seems to have vanished!
+      </p>
+      <Link
+        href="/menu"
+        className="font-sans font-bold text-brand-cocoa border-b-2 border-brand-cocoa pb-1 hover:text-brand-blush hover:border-brand-blush transition-colors"
+      >
+        Back to Menu
+      </Link>
+    </div>
+  );
+}
+
+/* ================================================================
+   Category Detail Page
+   ================================================================ */
+function CategoryDetailPage({ categoryName }: { categoryName: string }) {
+  const router = useRouter();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const products = useMemo(() => MENU_ITEMS.filter((p) => p.category === categoryName), [categoryName]);
+
+  useGSAP(() => {
+    gsap.fromTo(
+      ".cat-animate",
+      { y: 30, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }
+    );
+  }, { scope: containerRef });
+
+  return (
+    <main ref={containerRef} className="min-h-screen bg-brand-cream">
+      <MarqueeBar />
+      <Navbar />
+      <div className="pt-32 sm:pt-40 pb-12 sm:pb-20 px-4 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <button
+            onClick={() => router.push("/menu")}
+            className="group mb-8 sm:mb-12 flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-[0.2em] text-brand-cocoa/40 hover:text-brand-cocoa transition-colors"
+          >
+            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
+            Back to Categories
+          </button>
+
+          <div className="cat-animate mb-12 sm:mb-16">
+            <h1 className="font-serif text-5xl md:text-7xl text-brand-cocoa tracking-tight mb-4">
+              {categoryName}
+            </h1>
+            <p className="font-sans text-brand-charcoal/60 text-lg">
+              Explore our delicious selection of {categoryName.toLowerCase()}.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+            {products.map((product, i) => (
+              <div key={product.id} className="cat-animate">
+                <ProductCard
+                  {...product}
+                  isSpotlight={i === 0}
+                  className="w-full"
+                />
+              </div>
+            ))}
+          </div>
+
+          {products.length === 0 && (
+            <p className="text-center font-sans text-brand-charcoal/40 mt-8 italic">
+              Seasonal specials coming soon.
+            </p>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+}
+
+/* ================================================================
+   Product Detail Page
+   ================================================================ */
+function ProductDetailPage({ product }: { product: MenuItem }) {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const product = MENU_ITEMS.find((p) => p.id === slug);
-
-  // Suggested Pairings (Deterministic selection to stay "Pure")
   const suggestedProducts = useMemo(() => {
-    if (!product) return [];
-    // Show products from same category or fallback to first 3
     const sameCategory = MENU_ITEMS.filter((p) => p.category === product.category && p.id !== product.id);
     if (sameCategory.length >= 3) return sameCategory.slice(0, 3);
-
-    // Fallback if not enough in same category
     const others = MENU_ITEMS.filter((p) => p.id !== product.id && p.category !== product.category);
     return [...sameCategory, ...others].slice(0, 3);
   }, [product]);
@@ -45,9 +136,7 @@ export default function ProductDetailPage() {
   const [selectedSize, setSelectedSize] = useState(product?.weightOptions[0] || "");
 
   useGSAP(() => {
-    if (!product) return;
     const tl = gsap.timeline();
-
     tl.fromTo(
       ".product-image",
       { x: -100, autoAlpha: 0 },
@@ -65,24 +154,7 @@ export default function ProductDetailPage() {
         { y: 0, autoAlpha: 1, duration: 1, ease: "power3.out" },
         "-=0.4"
       );
-  }, { scope: containerRef, dependencies: [product] });
-
-  if (!product) {
-    return (
-      <div className="min-h-screen bg-brand-cream flex flex-col items-center justify-center p-6 text-center">
-        <h1 className="font-serif text-4xl text-brand-cocoa mb-4">Product Not Found</h1>
-        <p className="font-sans text-brand-charcoal/60 mb-8 text-lg">
-          The sweet treat you&rsquo;re looking for seems to have vanished!
-        </p>
-        <Link
-          href="/#menu"
-          className="font-sans font-bold text-brand-cocoa border-b-2 border-brand-cocoa pb-1 hover:text-brand-blush hover:border-brand-blush transition-colors"
-        >
-          Back to Menu
-        </Link>
-      </div>
-    );
-  }
+  }, { scope: containerRef });
 
   const handleOrder = () => {
     const message = encodeURIComponent(
@@ -97,17 +169,15 @@ export default function ProductDetailPage() {
       <Navbar />
       <div className="pt-32 sm:pt-40 pb-12 sm:pb-20 px-4 sm:px-6 lg:px-10">
         <div className="mx-auto max-w-7xl">
-          {/* Breadcrumb / Back Button */}
           <button
-            onClick={() => router.back()}
+            onClick={() => router.push(`/menu/${slugify(product.category)}`)}
             className="group mb-6 sm:mb-12 flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-[0.2em] text-brand-cocoa/40 hover:text-brand-cocoa transition-colors"
           >
             <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
-            Back to Menu
+            Back to {product.category}
           </button>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-16 items-start mb-12 sm:mb-24">
-            {/* Left Column: Image */}
             <div className="product-image relative aspect-[4/3] sm:aspect-4/5 rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl">
               <img
                 src={product.image}
@@ -123,7 +193,6 @@ export default function ProductDetailPage() {
               )}
             </div>
 
-            {/* Right Column: Info */}
             <div className="product-info space-y-6 sm:space-y-10">
               <div className="space-y-4 sm:space-y-6">
                 <div className="animate-text space-y-2">
@@ -149,7 +218,6 @@ export default function ProductDetailPage() {
                   </div>
                 </div>
 
-                {/* Ingredients Highlight */}
                 <div className="animate-text flex flex-wrap gap-2 pt-2">
                   {product.ingredients?.map((ing) => (
                     <span
@@ -161,7 +229,6 @@ export default function ProductDetailPage() {
                   ))}
                 </div>
 
-                {/* Specialty Badges - Quality Seals */}
                 <div className="animate-text flex flex-wrap gap-3 sm:gap-6 text-[10px] uppercase font-bold tracking-widest text-brand-cocoa/60">
                   <div className="flex items-center gap-2">
                     <Leaf size={14} className="text-green-600/60" />
@@ -187,9 +254,7 @@ export default function ProductDetailPage() {
                 </p>
               </div>
 
-              {/* Selection Controls */}
               <div className="animate-text space-y-5 sm:space-y-8 pt-2 sm:pt-4">
-                {/* Weight/Size Selection */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-2 text-brand-cocoa">
                     <Clock size={16} />
@@ -211,9 +276,7 @@ export default function ProductDetailPage() {
                   </div>
                 </div>
 
-                {/* Order Actions */}
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4 sm:pt-6">
-                  {/* Quantity Selector */}
                   <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 rounded-full border border-brand-cocoa/10 bg-white/50 w-full sm:w-auto min-w-[140px]">
                     <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -243,7 +306,6 @@ export default function ProductDetailPage() {
             </div>
           </div>
 
-          {/* Suggested Pairings */}
           <section className="suggested-section pt-12 sm:pt-24 border-t border-brand-cocoa/10">
             <div className="flex items-end justify-between mb-6 sm:mb-12">
               <div>
@@ -255,10 +317,10 @@ export default function ProductDetailPage() {
                 </h2>
               </div>
               <Link
-                href="/#menu"
+                href={`/menu/${slugify(product.category)}`}
                 className="hidden sm:inline-flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-widest text-brand-cocoa border-b border-brand-cocoa pb-1 opacity-60 hover:opacity-100 transition-opacity"
               >
-                Explore Full Menu
+                More from this category
               </Link>
             </div>
 

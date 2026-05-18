@@ -7,7 +7,7 @@ export const SITE_CONFIG = {
   contactPerson: "Bharat Chavhan",
   address: "GF-55, Satyam Mall, Opp. Saman Complex, Nr. Mansi Cross Road, Vastrapur, Ahmedabad-380015",
   instagram: "@gourmettazone",
-  instagramUrl: "https://instagram.com/gourmettazone",
+  instagramUrl: "https://www.instagram.com/gourmettazone?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
   instagramCooking: "@creativecookingwithkavitaa",
   email: "Gourmettazone@gmail.com",
   contactNumbers: ["+91 826429 2079", "+91 757483 1119"],

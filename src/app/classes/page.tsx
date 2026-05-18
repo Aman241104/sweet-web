@@ -141,7 +141,7 @@ export default function ClassesPage() {
                                 Step into Kavita Ma'am's kitchen and master the science of <strong className="text-brand-cocoa">eggless baking</strong>. From sharp-edge strucutres to delicate macarons, we turn home bakers into professionals.
                             </p>
 
-                            <div className="flex flex-col sm:flex-row gap-4">
+                            <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                                 <Link
                                     href="#workshops"
                                     className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-cocoa text-brand-cream rounded-full font-medium tracking-wider uppercase hover:bg-brand-accent transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
@@ -150,12 +150,19 @@ export default function ClassesPage() {
                                     <ArrowRight size={18} />
                                 </Link>
                                 <a
+                                    href="/products/CCWK-Baking%20Course-1-1.pdf"
+                                    download="Baking_Course_Details.pdf"
+                                    className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-accent text-white rounded-full font-medium tracking-wider uppercase hover:bg-white hover:text-brand-accent border border-brand-accent transition-all duration-300 shadow-xl hover:-translate-y-1"
+                                >
+                                    Download Syllabus
+                                </a>
+                                <a
                                     href="https://instagram.com/gourmettazone"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-transparent border border-brand-cocoa/20 text-brand-cocoa rounded-full font-medium tracking-wider uppercase hover:bg-brand-cocoa/5 transition-all duration-300"
                                 >
-                                    See Stduent Work
+                                    See Student Work
                                 </a>
                             </div>
                         </div>
@@ -402,15 +409,24 @@ export default function ClassesPage() {
                     <p className="text-xl text-brand-cream/70 mb-12 font-light">
                         Secure your spot in our next batch. Reach out via WhatsApp for the detailed curriculum and schedule.
                     </p>
-                    <a
-                        href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=Hi Kavita Ma'am, I am interested in your baking classes.`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-4 px-10 py-5 bg-brand-accent text-white rounded-full text-lg font-bold uppercase tracking-widest hover:bg-white hover:text-brand-accent transition-all transform hover:scale-105 shadow-[0_20px_50px_-10px_rgba(217,56,86,0.3)]"
-                    >
-                        <MessageCircle size={24} />
-                        Enquire Now
-                    </a>
+                    <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
+                        <a
+                            href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=Hi Kavita Ma'am, I am interested in your baking classes.`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-4 px-10 py-5 bg-brand-accent text-white rounded-full text-lg font-bold uppercase tracking-widest hover:bg-white hover:text-brand-accent transition-all transform hover:scale-105 shadow-[0_20px_50px_-10px_rgba(217,56,86,0.3)]"
+                        >
+                            <MessageCircle size={24} />
+                            Enquire Now
+                        </a>
+                        <a
+                            href="/products/CCWK-Baking%20Course-1-1.pdf"
+                            download="Baking_Course_Details.pdf"
+                            className="inline-flex items-center gap-4 px-10 py-5 bg-white text-brand-cocoa rounded-full text-lg font-bold uppercase tracking-widest hover:bg-brand-cocoa hover:text-white transition-all transform hover:scale-105 shadow-xl"
+                        >
+                            Download Syllabus
+                        </a>
+                    </div>
                 </div>
             </section>
 
