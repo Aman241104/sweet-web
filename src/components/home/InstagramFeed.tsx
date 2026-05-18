@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -115,13 +116,13 @@ export function InstagramFeed() {
               rel="noopener noreferrer"
               className="ig-item group relative aspect-square overflow-hidden rounded-xl bg-brand-cocoa/5"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={item.src}
                 alt={`Instagram post ${i + 1}`}
-                className="absolute inset-0 h-full w-full object-cover
-                           transition-transform duration-500 group-hover:scale-110"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
+                sizes="(max-width: 640px) 50vw, 33vw"
               />
 
               {/* Hover overlay */}

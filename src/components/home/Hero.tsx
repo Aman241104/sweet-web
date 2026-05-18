@@ -12,7 +12,8 @@ import {
   SketchSparkle,
   SketchSwirl
 } from "@/components/ui/HandDrawnIcons";
-import { ArrowRight, Leaf } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 /* ── Hero image ─────────────────────────────────────────────────── */
 const HERO_IMAGE = "/products/rasmalai_cake.png";
@@ -164,7 +165,7 @@ export function Hero() {
 
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap gap-4">
-              <a
+              <Link
                 href="/menu"
                 className="group inline-flex items-center gap-2 rounded-full
                            bg-brand-accent text-brand-cream px-8 py-4
@@ -177,7 +178,7 @@ export function Hero() {
                   size={16}
                   className="transition-transform duration-300 group-hover:translate-x-1"
                 />
-              </a>
+              </Link>
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 rounded-full

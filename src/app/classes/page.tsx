@@ -138,7 +138,7 @@ export default function ClassesPage() {
                             </h1>
 
                             <p className="text-lg lg:text-xl text-brand-charcoal/80 mb-10 leading-relaxed max-w-lg">
-                                Step into Kavita Ma'am's kitchen and master the science of <strong className="text-brand-cocoa">eggless baking</strong>. From sharp-edge strucutres to delicate macarons, we turn home bakers into professionals.
+                                Step into Kavita Ma&apos;am&apos;s kitchen and master the science of <strong className="text-brand-cocoa">eggless baking</strong>. From sharp-edge strucutres to delicate macarons, we turn home bakers into professionals.
                             </p>
 
                             <div className="flex flex-col sm:flex-row flex-wrap gap-4">
@@ -215,7 +215,7 @@ export default function ClassesPage() {
                                 <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden mb-4">
                                     <Image
                                         src="/owner.png"
-                                        alt="Kavita Ma'am"
+                                        alt="Kavita Ma&apos;am"
                                         fill
                                         className="object-cover transition-all duration-700"
                                     />
@@ -241,7 +241,7 @@ export default function ClassesPage() {
 
                             <div className="space-y-6 text-lg text-brand-charcoal/80 leading-relaxed font-light">
                                 <p>
-                                    "Baking is as much about science as it is about art. In my classes, I don't just teach you recipes; I teach you the 'why' and 'how' behind every step."
+                                    &quot;Baking is as much about science as it is about art. In my classes, I don&apos;t just teach you recipes; I teach you the &apos;why&apos; and &apos;how&apos; behind every step.&quot;
                                 </p>
                                 <p>
                                     Since 2013, I have had the privilege of mentoring over <strong>5,000 students</strong>. My goal is simple: to help you crack the code of eggless baking so you can create bakery-style results in your own home kitchen.
@@ -356,7 +356,7 @@ export default function ClassesPage() {
                             </div>
                             <h3 className="font-serif text-2xl text-brand-cocoa mb-4">100% Hands-on</h3>
                             <p className="text-brand-charcoal/70 leading-relaxed max-w-xs">
-                                Roll up your sleeves! You don't just watch here; you bake every single element yourself.
+                                Roll up your sleeves! You don&apos;t just watch here; you bake every single element yourself.
                             </p>
                         </div>
 
@@ -380,7 +380,7 @@ export default function ClassesPage() {
                             </div>
                             <h3 className="font-serif text-2xl text-brand-cocoa mb-4">Personal Mentor</h3>
                             <p className="text-brand-charcoal/70 leading-relaxed max-w-xs">
-                                Small batches ensure you get individual feedback and correction from Kavita Ma'am.
+                                Small batches ensure you get individual feedback and correction from Kavita Ma&apos;am.
                             </p>
                         </div>
                     </div>
@@ -411,7 +411,7 @@ export default function ClassesPage() {
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
                         <a
-                            href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=Hi Kavita Ma'am, I am interested in your baking classes.`}
+                            href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=Hi Kavita Ma&apos;am, I am interested in your baking classes.`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-4 px-10 py-5 bg-brand-accent text-white rounded-full text-lg font-bold uppercase tracking-widest hover:bg-white hover:text-brand-accent transition-all transform hover:scale-105 shadow-[0_20px_50px_-10px_rgba(217,56,86,0.3)]"
