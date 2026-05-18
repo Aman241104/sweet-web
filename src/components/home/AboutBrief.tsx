@@ -9,7 +9,7 @@ import { SITE_CONFIG } from "@/config/site";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ABOUT_IMAGE = "/kavita.png";
+const ABOUT_IMAGE = "/owner.png";
 
 export function AboutBrief() {
   const sectionRef = useRef<HTMLElement>(null);

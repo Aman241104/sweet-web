@@ -214,10 +214,10 @@ export default function ClassesPage() {
 
                                 <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden mb-4">
                                     <Image
-                                        src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?q=80&w=800&auto=format&fit=crop"
+                                        src="/owner.png"
                                         alt="Kavita Ma'am"
                                         fill
-                                        className="object-cover grayscale-0 lg:grayscale hover:grayscale-0 transition-all duration-700"
+                                        className="object-cover transition-all duration-700"
                                     />
                                 </div>
                                 <div className="text-center font-font-script text-2xl text-brand-cocoa pt-2">
