@@ -5,10 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { MessageCircle, Clock, ArrowRight, BookOpen, ChefHat, Download, Search, HelpCircle, Info, CheckCircle2 } from "lucide-react";
+import { useGSAP } from "@gsap/react";
+import { MessageCircle, Clock, ArrowRight, BookOpen, ChefHat, Download, Search, HelpCircle, CheckCircle2 } from "lucide-react";
 import { BAKING_CATEGORIES, COOKING_CLASSES } from "@/data/classes";
 import { SITE_CONFIG } from "@/config/site";
 import { Footer } from "@/components/layout/Footer";
+import { SectionDivider } from "@/components/ui/SectionDivider";
+import { GlowOrb, OrganicSwirl } from "@/components/ui/Decorations";
 import {
     SketchWhisk,
     SketchCupcake,
@@ -45,6 +48,7 @@ const FAQS = [
 
 export default function ClassesPage() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
     const [activeTab, setActiveTab] = useState<"baking" | "cooking">("baking");
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -60,86 +64,110 @@ export default function ClassesPage() {
         course.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    useEffect(() => {
-        // Wait for the DOM to be fully painted
-        const ctx = gsap.context(() => {
-            // 1. Hero Animations
-            const tl = gsap.timeline();
-            tl.from(".hero-content > *", {
-                y: 40,
+    useGSAP(() => {
+        // 1. Hero Animations
+        const tl = gsap.timeline();
+        tl.from(".hero-content > *", {
+            y: 40,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power3.out",
+            delay: 0.2,
+        })
+            .from(".hero-image-container", {
+                x: 40,
                 opacity: 0,
-                duration: 1,
-                stagger: 0.15,
-                ease: "power3.out",
-                delay: 0.2,
-            })
-                .from(".hero-image-container", {
-                    x: 40,
-                    opacity: 0,
-                    scale: 0.95,
-                    duration: 1.2,
-                    ease: "power3.out",
-                }, "-=0.8")
-                .from(".floating-element", {
-                    scale: 0,
-                    opacity: 0,
-                    duration: 0.8,
-                    stagger: 0.1,
-                    ease: "back.out(1.7)",
-                }, "-=0.5");
-
-            // 2. Instructor Section - Parallax & Reveal
-            gsap.from(".instructor-polaroid", {
-                scrollTrigger: {
-                    trigger: ".instructor-section",
-                    start: "top 70%",
-                },
-                rotate: -5,
-                y: 100,
-                opacity: 0,
+                scale: 0.95,
                 duration: 1.2,
                 ease: "power3.out",
-            });
-
-            gsap.from(".instructor-text > *", {
-                scrollTrigger: {
-                    trigger: ".instructor-section",
-                    start: "top 70%",
-                },
-                x: 50,
+            }, "-=0.8")
+            .from(".floating-element", {
+                scale: 0,
                 opacity: 0,
-                duration: 1,
+                duration: 0.8,
                 stagger: 0.1,
-                ease: "power3.out",
-            });
+                ease: "back.out(1.7)",
+            }, "-=0.5");
 
-            // 3. USP Icons - Pop in
-            gsap.from(".usp-icon", {
+        // 2. Section Reveals
+        const sections = gsap.utils.toArray<HTMLElement>("section:not(.hero-section)");
+        sections.forEach((section) => {
+            gsap.from(section.querySelectorAll(".reveal-up"), {
                 scrollTrigger: {
-                    trigger: ".usps-section",
+                    trigger: section,
                     start: "top 80%",
                 },
-                scale: 0,
-                rotation: -45,
-                duration: 0.8,
-                ease: "back.out(2)",
-                stagger: 0.1,
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
             });
+        });
 
-        }, containerRef);
+        // 3. Instructor Section - Parallax & Reveal
+        gsap.from(".instructor-polaroid", {
+            scrollTrigger: {
+                trigger: ".instructor-section",
+                start: "top 70%",
+            },
+            rotate: -5,
+            y: 100,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+        });
 
-        return () => ctx.revert();
-    }, []);
+        // 4. USP Icons - Pop in
+        gsap.from(".usp-icon", {
+            scrollTrigger: {
+                trigger: ".usps-section",
+                start: "top 80%",
+            },
+            scale: 0,
+            rotation: -45,
+            duration: 0.8,
+            ease: "back.out(2)",
+            stagger: 0.1,
+        });
+
+        // 5. Parallax for background decorations
+        gsap.to(".parallax-bg", {
+            scrollTrigger: {
+                trigger: "body",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1,
+            },
+            y: (i, target) => -100 * (parseFloat(target.dataset.speed || "1")),
+            ease: "none",
+        });
+
+    }, { scope: containerRef });
+
+    // Handle tab change animation
+    useEffect(() => {
+        if (contentRef.current) {
+            gsap.fromTo(contentRef.current,
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+            );
+        }
+    }, [activeTab]);
 
     return (
         <div ref={containerRef} className="bg-brand-cream min-h-screen pt-20 overflow-x-hidden">
 
             {/* ── Hero Section: "The Invitation" ─────────────────────────── */}
-            <section className="relative min-h-[90vh] flex items-center py-20 overflow-hidden">
+            <section className="relative min-h-[90vh] flex items-center py-20 overflow-hidden hero-section">
                 {/* Background Texture */}
                 <div className="absolute inset-0 z-0 opacity-[0.03]"
                     style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233d2b1f' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}
                 />
+                
+                <GlowOrb className="top-1/4 -left-20 w-[500px] h-[500px]" />
+                <GlowOrb className="bottom-1/4 -right-20 w-[400px] h-[400px] bg-brand-accent/10" />
 
                 <div className="container mx-auto px-6 max-w-7xl relative z-10">
                     <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
@@ -170,12 +198,6 @@ export default function ClassesPage() {
                                     Explore Curriculum
                                     <ArrowRight size={18} />
                                 </Link>
-                                <Link
-                                    href="#curriculum"
-                                    className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-accent text-white rounded-full font-medium tracking-wider uppercase hover:bg-white hover:text-brand-accent border border-brand-accent transition-all duration-300 shadow-xl hover:-translate-y-1"
-                                >
-                                    Full Curriculum
-                                </Link>
                                 <a
                                     href="https://instagram.com/creativecookingwithkavitaa"
                                     target="_blank"
@@ -191,6 +213,9 @@ export default function ClassesPage() {
                         <div className="w-full lg:w-1/2 relative hero-image-container">
                             <div className="relative aspect-[4/5] w-full max-w-lg mx-auto lg:ml-auto">
                                 {/* Floating Elements */}
+                                <div className="floating-element absolute top-10 -left-10 w-24 h-24 bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-xl z-30 animate-float-slow">
+                                    <SketchWhisk className="w-full h-full text-brand-accent" />
+                                </div>
 
                                 <div className="floating-element absolute top-1/2 -right-16 w-32 h-32 bg-brand-accent-light rounded-full p-6 flex items-center justify-center shadow-lg z-30 animate-float-slow" style={{ animationDelay: '1.5s' }}>
                                     <SketchCupcake className="w-16 h-16 text-brand-accent" />
@@ -215,13 +240,17 @@ export default function ClassesPage() {
                         </div>
                     </div>
                 </div>
+                
+                <div className="absolute bottom-0 left-0 w-full z-20">
+                    <SectionDivider className="text-white" />
+                </div>
             </section>
 
 
             {/* ── Instructor Section: "The Mentor" ───────────────────────── */}
             <section className="py-24 bg-white relative overflow-hidden instructor-section">
-                {/* Background Pattern */}
-
+                <GlowOrb className="top-1/2 right-0 w-[600px] h-[600px] bg-brand-cream/50" />
+                <OrganicSwirl className="absolute -top-10 -left-10 w-64 h-64 text-brand-accent/5 rotate-45" />
 
                 <div className="container mx-auto px-6 max-w-6xl relative z-10">
                     <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
@@ -254,12 +283,12 @@ export default function ClassesPage() {
 
                         {/* Text Content */}
                         <div className="w-full lg:w-7/12 instructor-text">
-                            <h2 className="font-serif text-4xl lg:text-5xl text-brand-cocoa mb-8 leading-tight">
+                            <h2 className="reveal-up font-serif text-4xl lg:text-5xl text-brand-cocoa mb-8 leading-tight">
                                 Teaching the art of <br />
                                 <span className="text-brand-accent italic font-script text-6xl lg:text-7xl -ml-2">Passion & Precision</span>
                             </h2>
 
-                            <div className="space-y-6 text-lg text-brand-charcoal/80 leading-relaxed font-light">
+                            <div className="reveal-up space-y-6 text-lg text-brand-charcoal/80 leading-relaxed font-light">
                                 <p>
                                     &quot;Baking is as much about science as it is about art. In my classes, I don&apos;t just teach you recipes; I teach you the &apos;why&apos; and &apos;how&apos; behind every step.&quot;
                                 </p>
@@ -268,17 +297,17 @@ export default function ClassesPage() {
                                 </p>
                             </div>
 
-                            <div className="mt-10 pt-10 border-t border-brand-cocoa/10 flex gap-12">
-                                <div>
-                                    <div className="font-serif text-4xl text-brand-cocoa mb-1">5k+</div>
+                            <div className="reveal-up mt-10 pt-10 border-t border-brand-cocoa/10 flex gap-12">
+                                <div className="group cursor-default">
+                                    <div className="font-serif text-4xl text-brand-cocoa mb-1 group-hover:text-brand-accent transition-colors">5k+</div>
                                     <div className="text-xs uppercase tracking-widest text-brand-charcoal/50">Students</div>
                                 </div>
-                                <div>
-                                    <div className="font-serif text-4xl text-brand-cocoa mb-1">100%</div>
+                                <div className="group cursor-default">
+                                    <div className="font-serif text-4xl text-brand-cocoa mb-1 group-hover:text-brand-accent transition-colors">100%</div>
                                     <div className="text-xs uppercase tracking-widest text-brand-charcoal/50">Eggless</div>
                                 </div>
-                                <div>
-                                    <div className="font-serif text-4xl text-brand-cocoa mb-1">4.9</div>
+                                <div className="group cursor-default">
+                                    <div className="font-serif text-4xl text-brand-cocoa mb-1 group-hover:text-brand-accent transition-colors">4.9</div>
                                     <div className="text-xs uppercase tracking-widest text-brand-charcoal/50">Rating</div>
                                 </div>
                             </div>
@@ -287,17 +316,24 @@ export default function ClassesPage() {
                     </div>
                 </div>
             </section>
+            
+            <div className="w-full rotate-180 -mt-1 relative z-10">
+                <SectionDivider className="text-brand-cream/50" />
+            </div>
 
             {/* ── Full Curriculum Section ───────────────────────────── */}
-            <section id="curriculum" className="py-24 bg-white border-y border-brand-cocoa/5">
-                <div className="container mx-auto px-6 max-w-6xl">
-                    <div className="text-center mb-16">
+            <section id="curriculum" className="py-24 bg-brand-cream/30 relative overflow-hidden curriculum-section">
+                <GlowOrb className="top-1/3 left-0 w-[400px] h-[400px] bg-brand-accent/5" />
+                <GlowOrb className="bottom-0 right-0 w-[500px] h-[500px] bg-brand-cocoa/5" />
+
+                <div className="container mx-auto px-6 max-w-6xl relative z-10">
+                    <div className="text-center mb-16 reveal-up">
                         <h2 className="font-serif text-4xl lg:text-5xl text-brand-cocoa mb-4">Complete Syllabus</h2>
                         <p className="text-brand-charcoal/60">Explore our wide range of professional baking and cooking courses.</p>
                     </div>
 
                     {/* Search & Filter Bar */}
-                    <div className="max-w-xl mx-auto mb-12 relative px-4">
+                    <div className="max-w-xl mx-auto mb-12 relative px-4 reveal-up">
                         <div className="relative group">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-cocoa/40 group-focus-within:text-brand-accent transition-colors" size={20} />
                             <input
@@ -311,7 +347,7 @@ export default function ClassesPage() {
                     </div>
 
                     {/* Tabs - Sticky */}
-                    <div className="sticky top-24 z-30 flex justify-center mb-12">
+                    <div className="sticky top-24 z-30 flex justify-center mb-12 reveal-up">
                         <div className="inline-flex p-1 bg-white/80 backdrop-blur-md rounded-xl border border-brand-cocoa/10 shadow-lg">
                             <button
                                 onClick={() => setActiveTab("baking")}
@@ -343,7 +379,7 @@ export default function ClassesPage() {
                     )}
 
                     {/* Tab Content */}
-                    <div className="bg-brand-cream/30 rounded-3xl p-6 lg:p-10 border border-brand-cocoa/5">
+                    <div ref={contentRef} className="bg-white/50 backdrop-blur-sm rounded-3xl p-6 lg:p-10 border border-white">
                         {activeTab === "baking" ? (
                             <div className="space-y-16">
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
@@ -354,7 +390,7 @@ export default function ClassesPage() {
                                     <a
                                         href="/products/CCWK-Baking%20Workshops.pdf"
                                         download
-                                        className="inline-flex items-center gap-2 px-6 py-3 bg-brand-accent text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-brand-cocoa transition-colors"
+                                        className="inline-flex items-center gap-2 px-6 py-3 bg-brand-accent text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-brand-cocoa transition-colors shadow-lg shadow-brand-accent/20"
                                     >
                                         <Download size={16} />
                                         Download PDF Syllabus
@@ -363,7 +399,7 @@ export default function ClassesPage() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                     {filteredBaking.map((category) => (
-                                        <div key={category.name} className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-cocoa/5 hover:shadow-xl transition-all duration-500 flex flex-col">
+                                        <div key={category.name} className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-cocoa/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 flex flex-col">
                                             {/* Category Image */}
                                             <div className="relative h-56 w-full overflow-hidden">
                                                 <Image
@@ -421,7 +457,7 @@ export default function ClassesPage() {
                                     <a
                                         href="/products/CCWK_Cooking%20Course.pdf"
                                         download
-                                        className="inline-flex items-center gap-2 px-6 py-3 bg-brand-accent text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-brand-cocoa transition-colors"
+                                        className="inline-flex items-center gap-2 px-6 py-3 bg-brand-accent text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-brand-cocoa transition-colors shadow-lg shadow-brand-accent/20"
                                     >
                                         <Download size={16} />
                                         Download PDF Syllabus
@@ -430,7 +466,7 @@ export default function ClassesPage() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                     {filteredCooking.map((course) => (
-                                        <div key={course.id} className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-cocoa/5 hover:shadow-lg transition-all duration-300">
+                                        <div key={course.id} className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-cocoa/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                                             {/* Course Image */}
                                             <div className="relative h-48 w-full overflow-hidden">
                                                 <Image
@@ -470,7 +506,7 @@ export default function ClassesPage() {
                         )}
 
                         {/* General Notes */}
-                        <div className="mt-12 p-6 bg-white/50 rounded-2xl border border-dashed border-brand-cocoa/20 text-center">
+                        <div className="mt-12 p-6 bg-brand-cream/50 rounded-2xl border border-dashed border-brand-cocoa/20 text-center">
                             <p className="text-xs text-brand-charcoal/60 uppercase tracking-widest leading-relaxed">
                                 *All classes are <strong className="text-green-700">pure veg and eggless</strong> • Prior registration mandatory • Maximum batch size: 6 students • individual classes available on request
                             </p>
@@ -478,15 +514,21 @@ export default function ClassesPage() {
                     </div>
                 </div>
             </section>
+            
+            <div className="w-full -mt-1 relative z-10 bg-white">
+                 <SectionDivider className="text-brand-cream/30" />
+            </div>
 
             {/* ── Why Learn With Us: "The Difference" ────────────────────── */}
             <section className="py-32 bg-white relative overflow-hidden usps-section">
+                <GlowOrb className="top-0 left-1/4 w-[400px] h-[400px] bg-brand-accent/5" />
+                
                 <div className="container mx-auto px-6 max-w-7xl relative z-10">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
                         {/* USP 1 */}
-                        <div className="flex flex-col items-center text-center group">
+                        <div className="flex flex-col items-center text-center group reveal-up">
                             <div className="usp-icon w-32 h-32 mb-8 relative flex items-center justify-center">
-                                <div className="absolute inset-0 bg-white rounded-full scale-100 lg:scale-0 lg:group-hover:scale-100 transition-transform duration-500 opacity-50" />
+                                <div className="absolute inset-0 bg-brand-cream rounded-full scale-100 lg:scale-0 lg:group-hover:scale-100 transition-transform duration-500 opacity-50" />
                                 <SketchRollingPin className="w-full h-full text-brand-cocoa group-hover:rotate-12 transition-transform duration-500" strokeWidth={1} />
                             </div>
                             <h3 className="font-serif text-2xl text-brand-cocoa mb-4">100% Hands-on</h3>
@@ -496,9 +538,9 @@ export default function ClassesPage() {
                         </div>
 
                         {/* USP 2 */}
-                        <div className="flex flex-col items-center text-center group">
+                        <div className="flex flex-col items-center text-center group reveal-up">
                             <div className="usp-icon w-32 h-32 mb-8 relative flex items-center justify-center">
-                                <div className="absolute inset-0 bg-white rounded-full scale-100 lg:scale-0 lg:group-hover:scale-100 transition-transform duration-500 opacity-50" />
+                                <div className="absolute inset-0 bg-brand-cream rounded-full scale-100 lg:scale-0 lg:group-hover:scale-100 transition-transform duration-500 opacity-50" />
                                 <SketchLeaf className="w-full h-full text-green-700/80 group-hover:scale-110 transition-transform duration-500" strokeWidth={1} />
                             </div>
                             <h3 className="font-serif text-2xl text-brand-cocoa mb-4">Certified Eggless</h3>
@@ -508,9 +550,9 @@ export default function ClassesPage() {
                         </div>
 
                         {/* USP 3 */}
-                        <div className="flex flex-col items-center text-center group">
+                        <div className="flex flex-col items-center text-center group reveal-up">
                             <div className="usp-icon w-32 h-32 mb-8 relative flex items-center justify-center">
-                                <div className="absolute inset-0 bg-white rounded-full scale-100 lg:scale-0 lg:group-hover:scale-100 transition-transform duration-500 opacity-50" />
+                                <div className="absolute inset-0 bg-brand-cream rounded-full scale-100 lg:scale-0 lg:group-hover:scale-100 transition-transform duration-500 opacity-50" />
                                 <SketchWhisk className="w-full h-full text-brand-accent group-hover:-rotate-12 transition-transform duration-500" strokeWidth={1} />
                             </div>
                             <h3 className="font-serif text-2xl text-brand-cocoa mb-4">Personal Mentor</h3>
@@ -523,28 +565,31 @@ export default function ClassesPage() {
             </section>
 
             {/* ── CTA Section ────────────────────────────────────────────── */}
-            <section className="relative py-32 bg-brand-cocoa overflow-hidden flex items-center justify-center">
+            <section className="relative py-40 bg-brand-cocoa overflow-hidden flex items-center justify-center">
                 {/* Background Image with Parallax feeling */}
-                <div className="absolute inset-0 opacity-20">
+                <div className="absolute inset-0 opacity-20 parallax-bg" data-speed="0.2">
                     <Image
                         src="/products/dutch_truffle_cake.png"
                         alt="Dark Chocolate Truffle Background"
                         fill
-                        className="object-cover"
+                        className="object-cover scale-110"
                     />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-cocoa via-brand-cocoa/80 to-transparent" />
+                
+                <OrganicSwirl className="absolute top-0 right-0 w-96 h-96 text-white/5 -rotate-12" />
+                <OrganicSwirl className="absolute bottom-0 left-0 w-96 h-96 text-white/5 rotate-180" />
 
-                <div className="container mx-auto px-6 relative z-10 text-center max-w-3xl">
-                    <SketchDoodle className="w-48 h-12 text-brand-accent/30 mx-auto mb-8 " />
-                    <h2 className="font-serif text-5xl lg:text-7xl text-brand-cream mb-8 leading-tight">
+                <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
+                    <SketchDoodle className="reveal-up w-48 h-12 text-brand-accent/30 mx-auto mb-8 " />
+                    <h2 className="reveal-up font-serif text-5xl lg:text-7xl text-brand-cream mb-8 leading-tight">
                         Your Culinary Journey <br />
                         <span className="text-brand-accent">Starts Here</span>
                     </h2>
-                    <p className="text-xl text-brand-cream/70 mb-12 font-light">
+                    <p className="reveal-up text-xl text-brand-cream/70 mb-12 font-light max-w-2xl mx-auto">
                         Secure your spot in our next batch. Reach out via WhatsApp for the detailed curriculum and schedule for our Baking and Cooking classes.
                     </p>
-                    <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
+                    <div className="reveal-up flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
                         <a
                             href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=Hi Kavita Ma&apos;am, I am interested in your baking and cooking classes.`}
                             target="_blank"
@@ -565,9 +610,11 @@ export default function ClassesPage() {
             </section>
 
             {/* ── FAQ Section ─────────────────────────────────────────── */}
-            <section className="py-24 bg-brand-cream/50">
-                <div className="container mx-auto px-6 max-w-4xl">
-                    <div className="text-center mb-16">
+            <section className="py-24 bg-brand-cream relative overflow-hidden faq-section">
+                <GlowOrb className="top-0 left-0 w-[400px] h-[400px] bg-brand-accent/5" />
+                
+                <div className="container mx-auto px-6 max-w-4xl relative z-10">
+                    <div className="text-center mb-16 reveal-up">
                         <HelpCircle className="w-12 h-12 text-brand-accent/20 mx-auto mb-4" />
                         <h2 className="font-serif text-4xl text-brand-cocoa mb-4">Common Questions</h2>
                         <p className="text-brand-charcoal/60">Everything you need to know about our workshops.</p>
@@ -575,8 +622,8 @@ export default function ClassesPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {FAQS.map((faq, i) => (
-                            <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-brand-cocoa/5 hover:border-brand-accent/20 transition-colors">
-                                <h4 className="font-serif text-xl text-brand-cocoa mb-3 flex items-start gap-3">
+                            <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-brand-cocoa/5 hover:border-brand-accent/20 transition-all hover:shadow-xl group">
+                                <h4 className="font-serif text-xl text-brand-cocoa mb-3 flex items-start gap-3 group-hover:text-brand-accent transition-colors">
                                     <span className="text-brand-accent shrink-0">Q.</span>
                                     {faq.q}
                                 </h4>
@@ -587,12 +634,16 @@ export default function ClassesPage() {
                         ))}
                     </div>
                 </div>
+                
+                <div className="absolute bottom-0 left-0 w-full z-0 translate-y-1/2">
+                    <SectionDivider className="text-white" />
+                </div>
             </section>
 
             {/* ── Learning Experience: What to Expect ─────────────────── */}
-            <section className="py-24 bg-white">
-                <div className="container mx-auto px-6 max-w-6xl">
-                    <div className="bg-brand-cocoa rounded-[3rem] p-10 lg:p-20 relative overflow-hidden">
+            <section className="py-24 bg-white relative overflow-hidden">
+                <div className="container mx-auto px-6 max-w-6xl relative z-10">
+                    <div className="reveal-up bg-brand-cocoa rounded-[3rem] p-10 lg:p-20 relative overflow-hidden shadow-2xl">
                         {/* Decorative Background */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-accent/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
@@ -610,12 +661,12 @@ export default function ClassesPage() {
                                         { title: "Take Home Your Creation", desc: "Everything you bake/cook in class is yours to take home." },
                                         { title: "Lifetime Support", desc: "Access to our community and direct help for any future queries." }
                                     ].map((item, i) => (
-                                        <div key={i} className="flex gap-4">
-                                            <div className="w-6 h-6 rounded-full bg-brand-accent/20 flex items-center justify-center shrink-0 mt-1">
-                                                <CheckCircle2 size={14} className="text-brand-accent" />
+                                        <div key={i} className="flex gap-4 group">
+                                            <div className="w-6 h-6 rounded-full bg-brand-accent/20 flex items-center justify-center shrink-0 mt-1 group-hover:bg-brand-accent transition-colors">
+                                                <CheckCircle2 size={14} className="text-brand-accent group-hover:text-white" />
                                             </div>
                                             <div>
-                                                <h4 className="text-brand-cream font-bold text-sm uppercase tracking-widest mb-1">{item.title}</h4>
+                                                <h4 className="text-brand-cream font-bold text-sm uppercase tracking-widest mb-1 group-hover:text-brand-accent transition-colors">{item.title}</h4>
                                                 <p className="text-brand-cream/60 text-sm">{item.desc}</p>
                                             </div>
                                         </div>
@@ -623,7 +674,7 @@ export default function ClassesPage() {
                                 </div>
                             </div>
 
-                            <div className="relative aspect-square rounded-3xl overflow-hidden border-8 border-white/5 shadow-2xl">
+                            <div className="relative aspect-square rounded-3xl overflow-hidden border-8 border-white/5 shadow-2xl hover:scale-[1.02] transition-transform duration-700">
                                 <Image
                                     src="/products/DSC_7577.JPG"
                                     alt="Learning in progress"
