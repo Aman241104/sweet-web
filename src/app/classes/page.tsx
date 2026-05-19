@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { MessageCircle, Clock, ArrowRight, BookOpen, ChefHat, Download } from "lucide-react";
+import { MessageCircle, Clock, ArrowRight, BookOpen, ChefHat, Download, Search, HelpCircle, Info, CheckCircle2 } from "lucide-react";
 import { BAKING_CATEGORIES, COOKING_CLASSES } from "@/data/classes";
 import { SITE_CONFIG } from "@/config/site";
 import { Footer } from "@/components/layout/Footer";
@@ -20,9 +20,45 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
+const FAQS = [
+    {
+        q: "Are the classes suitable for absolute beginners?",
+        a: "Yes! Most of our courses are designed for beginners. We start from the basics and guide you step-by-step."
+    },
+    {
+        q: "Do I need to bring my own ingredients?",
+        a: "No, all ingredients, tools, and aprons are provided by us in the studio. You just need to bring your enthusiasm!"
+    },
+    {
+        q: "Will I get a certificate after completion?",
+        a: "Yes, we provide a 'Creative Cooking with Kavita' certificate for all our professional workshops."
+    },
+    {
+        q: "Are all classes really eggless?",
+        a: "Absolutely. 100% of our baking and cooking classes are pure vegetarian and eggless."
+    },
+    {
+        q: "What is the batch size?",
+        a: "To ensure personal attention, we keep our batches small, typically limited to 6 students."
+    }
+];
+
 export default function ClassesPage() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [activeTab, setActiveTab] = useState<"baking" | "cooking">("baking");
+    const [searchQuery, setSearchQuery] = useState("");
+
+    // Filtering logic
+    const filteredBaking = BAKING_CATEGORIES.map(cat => ({
+        ...cat,
+        courses: cat.courses.filter(course =>
+            course.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+    })).filter(cat => cat.courses.length > 0);
+
+    const filteredCooking = COOKING_CLASSES.filter(course =>
+        course.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     useEffect(() => {
         // Wait for the DOM to be fully painted
@@ -260,25 +296,51 @@ export default function ClassesPage() {
                         <p className="text-brand-charcoal/60">Explore our wide range of professional baking and cooking courses.</p>
                     </div>
 
-                    {/* Tabs */}
-                    <div className="flex justify-center mb-12">
-                        <div className="inline-flex p-1 bg-brand-cream rounded-xl border border-brand-cocoa/10">
+                    {/* Search & Filter Bar */}
+                    <div className="max-w-xl mx-auto mb-12 relative px-4">
+                        <div className="relative group">
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-cocoa/40 group-focus-within:text-brand-accent transition-colors" size={20} />
+                            <input
+                                type="text"
+                                placeholder="Search for a course (e.g. 'Cake', 'Thai', 'Bread')..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full pl-12 pr-4 py-4 bg-white border border-brand-cocoa/10 rounded-2xl shadow-sm focus:ring-2 focus:ring-brand-accent/20 focus:border-brand-accent outline-none transition-all text-brand-cocoa"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Tabs - Sticky */}
+                    <div className="sticky top-24 z-30 flex justify-center mb-12">
+                        <div className="inline-flex p-1 bg-white/80 backdrop-blur-md rounded-xl border border-brand-cocoa/10 shadow-lg">
                             <button
                                 onClick={() => setActiveTab("baking")}
-                                className={`flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest transition-all duration-300 ${activeTab === "baking" ? "bg-brand-cocoa text-brand-cream shadow-lg" : "text-brand-cocoa/60 hover:text-brand-cocoa"}`}
+                                className={`flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest transition-all duration-300 ${activeTab === "baking" ? "bg-brand-cocoa text-brand-cream" : "text-brand-cocoa/60 hover:text-brand-cocoa"}`}
                             >
                                 <ChefHat size={18} />
-                                Baking Courses
+                                Baking
                             </button>
                             <button
                                 onClick={() => setActiveTab("cooking")}
-                                className={`flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest transition-all duration-300 ${activeTab === "cooking" ? "bg-brand-cocoa text-brand-cream shadow-lg" : "text-brand-cocoa/60 hover:text-brand-cocoa"}`}
+                                className={`flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest transition-all duration-300 ${activeTab === "cooking" ? "bg-brand-cocoa text-brand-cream" : "text-brand-cocoa/60 hover:text-brand-cocoa"}`}
                             >
                                 <BookOpen size={18} />
-                                Cooking Courses
+                                Cooking
                             </button>
                         </div>
                     </div>
+
+                    {/* No Results State */}
+                    {searchQuery && (activeTab === "baking" ? filteredBaking : filteredCooking).length === 0 && (
+                        <div className="text-center py-20 bg-white/30 rounded-3xl border border-dashed border-brand-cocoa/10">
+                            <div className="w-16 h-16 bg-brand-cream rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Search size={24} className="text-brand-cocoa/20" />
+                            </div>
+                            <h3 className="font-serif text-2xl text-brand-cocoa mb-2">No courses found</h3>
+                            <p className="text-brand-charcoal/60">Try searching for something else or browse all courses.</p>
+                            <button onClick={() => setSearchQuery("")} className="mt-6 text-brand-accent font-bold uppercase tracking-widest text-xs border-b border-brand-accent pb-1">Clear Search</button>
+                        </div>
+                    )}
 
                     {/* Tab Content */}
                     <div className="bg-brand-cream/30 rounded-3xl p-6 lg:p-10 border border-brand-cocoa/5">
@@ -287,7 +349,7 @@ export default function ClassesPage() {
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                                     <div>
                                         <h3 className="font-serif text-3xl text-brand-cocoa mb-2">Baking Workshops</h3>
-                                        <p className="text-brand-charcoal/60 text-sm">Professional certified courses across 9 specialized categories.</p>
+                                        <p className="text-brand-charcoal/60 text-sm">Professional certified courses across {filteredBaking.length} categories.</p>
                                     </div>
                                     <a
                                         href="/products/CCWK-Baking%20Workshops.pdf"
@@ -300,7 +362,7 @@ export default function ClassesPage() {
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                    {BAKING_CATEGORIES.map((category) => (
+                                    {filteredBaking.map((category) => (
                                         <div key={category.name} className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-cocoa/5 hover:shadow-xl transition-all duration-500 flex flex-col">
                                             {/* Category Image */}
                                             <div className="relative h-56 w-full overflow-hidden">
@@ -354,7 +416,7 @@ export default function ClassesPage() {
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                                     <div>
                                         <h3 className="font-serif text-3xl text-brand-cocoa mb-2">Cooking Courses</h3>
-                                        <p className="text-brand-charcoal/60 text-sm">From traditional sweets to global cuisines, master it all.</p>
+                                        <p className="text-brand-charcoal/60 text-sm">Explore our {filteredCooking.length} professional cooking modules.</p>
                                     </div>
                                     <a
                                         href="/products/CCWK_Cooking%20Course.pdf"
@@ -367,7 +429,7 @@ export default function ClassesPage() {
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                                    {COOKING_CLASSES.map((course) => (
+                                    {filteredCooking.map((course) => (
                                         <div key={course.id} className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-cocoa/5 hover:shadow-lg transition-all duration-300">
                                             {/* Course Image */}
                                             <div className="relative h-48 w-full overflow-hidden">
@@ -498,6 +560,78 @@ export default function ClassesPage() {
                         >
                             View Full Syllabus
                         </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* ── FAQ Section ─────────────────────────────────────────── */}
+            <section className="py-24 bg-brand-cream/50">
+                <div className="container mx-auto px-6 max-w-4xl">
+                    <div className="text-center mb-16">
+                        <HelpCircle className="w-12 h-12 text-brand-accent/20 mx-auto mb-4" />
+                        <h2 className="font-serif text-4xl text-brand-cocoa mb-4">Common Questions</h2>
+                        <p className="text-brand-charcoal/60">Everything you need to know about our workshops.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {FAQS.map((faq, i) => (
+                            <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-brand-cocoa/5 hover:border-brand-accent/20 transition-colors">
+                                <h4 className="font-serif text-xl text-brand-cocoa mb-3 flex items-start gap-3">
+                                    <span className="text-brand-accent shrink-0">Q.</span>
+                                    {faq.q}
+                                </h4>
+                                <p className="text-brand-charcoal/70 text-sm leading-relaxed pl-7">
+                                    {faq.a}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ── Learning Experience: What to Expect ─────────────────── */}
+            <section className="py-24 bg-white">
+                <div className="container mx-auto px-6 max-w-6xl">
+                    <div className="bg-brand-cocoa rounded-[3rem] p-10 lg:p-20 relative overflow-hidden">
+                        {/* Decorative Background */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-accent/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+
+                        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                            <div>
+                                <h2 className="font-serif text-4xl lg:text-5xl text-brand-cream mb-8 leading-tight">
+                                    A Learning Experience <br />
+                                    <span className="text-brand-accent italic">Like No Other</span>
+                                </h2>
+                                <div className="space-y-6">
+                                    {[
+                                        { title: "Personal Attention", desc: "Small batches ensure you get one-on-one guidance." },
+                                        { title: "Commercial Recipes", desc: "Learn recipes that are tested for bakery-style results." },
+                                        { title: "Take Home Your Creation", desc: "Everything you bake/cook in class is yours to take home." },
+                                        { title: "Lifetime Support", desc: "Access to our community and direct help for any future queries." }
+                                    ].map((item, i) => (
+                                        <div key={i} className="flex gap-4">
+                                            <div className="w-6 h-6 rounded-full bg-brand-accent/20 flex items-center justify-center shrink-0 mt-1">
+                                                <CheckCircle2 size={14} className="text-brand-accent" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-brand-cream font-bold text-sm uppercase tracking-widest mb-1">{item.title}</h4>
+                                                <p className="text-brand-cream/60 text-sm">{item.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="relative aspect-square rounded-3xl overflow-hidden border-8 border-white/5 shadow-2xl">
+                                <Image
+                                    src="/products/DSC_7577.JPG"
+                                    alt="Learning in progress"
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
