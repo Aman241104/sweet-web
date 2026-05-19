@@ -281,9 +281,9 @@ export default function ClassesPage() {
                     </div>
 
                     {/* Tab Content */}
-                    <div className="bg-brand-cream/30 rounded-3xl p-8 lg:p-12 border border-brand-cocoa/5">
+                    <div className="bg-brand-cream/30 rounded-3xl p-6 lg:p-10 border border-brand-cocoa/5">
                         {activeTab === "baking" ? (
-                            <div className="space-y-12">
+                            <div className="space-y-16">
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                                     <div>
                                         <h3 className="font-serif text-3xl text-brand-cocoa mb-2">Baking Workshops</h3>
@@ -301,28 +301,56 @@ export default function ClassesPage() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                     {BAKING_CATEGORIES.map((category) => (
-                                        <div key={category.name} className="bg-white p-6 rounded-2xl shadow-sm border border-brand-cocoa/5 hover:border-brand-accent/20 transition-colors">
-                                            <h4 className="font-serif text-xl text-brand-accent mb-4 pb-2 border-b border-brand-accent/10">{category.name}</h4>
-                                            <ul className="space-y-4">
-                                                {category.courses.map((course) => (
-                                                    <li key={course.id} className="group">
-                                                        <div className="flex justify-between items-start mb-1">
-                                                            <span className="text-brand-cocoa font-medium text-sm leading-tight group-hover:text-brand-accent transition-colors">{course.title}</span>
-                                                            <span className="text-brand-accent font-bold text-sm ml-2">{course.price}</span>
-                                                        </div>
-                                                        <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-brand-charcoal/40">
-                                                            <Clock size={10} />
-                                                            {course.duration}
-                                                        </div>
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                        <div key={category.name} className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-cocoa/5 hover:shadow-xl transition-all duration-500 flex flex-col">
+                                            {/* Category Image */}
+                                            <div className="relative h-56 w-full overflow-hidden">
+                                                <Image
+                                                    src={category.image || "https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800"}
+                                                    alt={category.name}
+                                                    fill
+                                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-brand-cocoa/60 to-transparent" />
+                                                <div className="absolute bottom-4 left-6">
+                                                    <h4 className="font-serif text-2xl text-white">{category.name}</h4>
+                                                </div>
+                                            </div>
+
+                                            {/* Course List */}
+                                            <div className="p-6 flex-grow">
+                                                <ul className="space-y-4">
+                                                    {category.courses.map((course) => (
+                                                        <li key={course.id} className="flex justify-between items-start group/item">
+                                                            <div className="flex-grow">
+                                                                <span className="text-brand-cocoa font-medium text-sm leading-tight block group-hover/item:text-brand-accent transition-colors">{course.title}</span>
+                                                                <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-brand-charcoal/40 mt-1">
+                                                                    <Clock size={10} />
+                                                                    {course.duration}
+                                                                </div>
+                                                            </div>
+                                                            <span className="text-brand-accent font-bold text-sm ml-4">{course.price}</span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+
+                                            {/* CTA */}
+                                            <div className="p-4 bg-brand-cream/50 border-t border-brand-cocoa/5">
+                                                <a
+                                                    href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(`Hi, I am interested in the "${category.name}" baking courses. Please send me details.`)}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="w-full py-3 bg-brand-cocoa text-brand-cream text-[10px] font-bold uppercase tracking-[0.2em] rounded-lg text-center hover:bg-brand-accent transition-colors block"
+                                                >
+                                                    Enquire Category
+                                                </a>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         ) : (
-                            <div className="space-y-12">
+                            <div className="space-y-16">
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                                     <div>
                                         <h3 className="font-serif text-3xl text-brand-cocoa mb-2">Cooking Courses</h3>
@@ -338,36 +366,43 @@ export default function ClassesPage() {
                                     </a>
                                 </div>
 
-                                <div className="bg-white rounded-2xl shadow-sm border border-brand-cocoa/5 overflow-hidden">
-                                    <div className="overflow-x-auto">
-                                        <table className="w-full text-left">
-                                            <thead>
-                                                <tr className="bg-brand-cocoa text-brand-cream text-xs uppercase tracking-[0.2em]">
-                                                    <th className="px-6 py-4 font-bold">Course Name</th>
-                                                    <th className="px-6 py-4 font-bold">Duration</th>
-                                                    <th className="px-6 py-4 font-bold text-right">Fee</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody className="divide-y divide-brand-cocoa/5">
-                                                {COOKING_CLASSES.map((course) => (
-                                                    <tr key={course.id} className="hover:bg-brand-cream/50 transition-colors group">
-                                                        <td className="px-6 py-4">
-                                                            <span className="text-brand-cocoa font-medium group-hover:text-brand-accent transition-colors">{course.title}</span>
-                                                        </td>
-                                                        <td className="px-6 py-4">
-                                                            <div className="flex items-center gap-2 text-xs text-brand-charcoal/60">
-                                                                <Clock size={12} className="text-brand-accent" />
-                                                                {course.duration}
-                                                            </div>
-                                                        </td>
-                                                        <td className="px-6 py-4 text-right">
-                                                            <span className="text-brand-accent font-bold">{course.price}</span>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                    {COOKING_CLASSES.map((course) => (
+                                        <div key={course.id} className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-cocoa/5 hover:shadow-lg transition-all duration-300">
+                                            {/* Course Image */}
+                                            <div className="relative h-48 w-full overflow-hidden">
+                                                <Image
+                                                    src={course.image || "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=800"}
+                                                    alt={course.title}
+                                                    fill
+                                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                                />
+                                                <div className="absolute top-4 right-4 bg-brand-accent text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-lg">
+                                                    {course.price}
+                                                </div>
+                                            </div>
+
+                                            {/* Course Content */}
+                                            <div className="p-5">
+                                                <h4 className="text-brand-cocoa font-serif text-lg leading-tight mb-2 group-hover:text-brand-accent transition-colors">
+                                                    {course.title}
+                                                </h4>
+                                                <div className="flex items-center gap-2 text-xs text-brand-charcoal/50 uppercase tracking-widest">
+                                                    <Clock size={12} className="text-brand-accent" />
+                                                    {course.duration}
+                                                </div>
+
+                                                <a
+                                                    href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(`Hi, I am interested in the "${course.title}" cooking class. Please send me details.`)}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="mt-6 w-full py-3 border border-brand-cocoa/10 text-brand-cocoa text-[10px] font-bold uppercase tracking-[0.2em] rounded-lg text-center hover:bg-brand-cocoa hover:text-white transition-all block"
+                                                >
+                                                    Enquire Now
+                                                </a>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         )}

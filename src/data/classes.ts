@@ -12,6 +12,7 @@ export interface Course {
 export interface CourseCategory {
     name: string;
     courses: Course[];
+    image?: string; // Add image for category-level display
 }
 
 export const FEATURED_WORKSHOPS: Course[] = [
@@ -50,6 +51,7 @@ export const FEATURED_WORKSHOPS: Course[] = [
 export const BAKING_CATEGORIES: CourseCategory[] = [
     {
         name: "Bread",
+        image: "/products/bread_category.png",
         courses: [
             { id: "bread-pav-loaf", title: "Bread, Pav, Burns and Loaf", duration: "2 Days", price: "₹2,000" },
             { id: "jain-bread", title: "Jain Bread", duration: "1 Day", price: "₹2,000" },
@@ -59,6 +61,7 @@ export const BAKING_CATEGORIES: CourseCategory[] = [
     },
     {
         name: "Laminated Pastries",
+        image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800",
         courses: [
             { id: "puff-khari", title: "Puff and Khari", duration: "1 Day", price: "₹2,000" },
             { id: "croissant-danish", title: "Croissant and Danish Roll", duration: "2 Days", price: "₹6,000" },
@@ -67,6 +70,7 @@ export const BAKING_CATEGORIES: CourseCategory[] = [
     },
     {
         name: "Cookies",
+        image: "/products/zchocochipscookies.JPG",
         courses: [
             { id: "classic-cookies", title: "Classic Cookies", duration: "1 Day", price: "₹2,000" },
             { id: "healthy-cookies", title: "Healthy Cookies", duration: "1 Day", price: "₹2,000" },
@@ -76,6 +80,7 @@ export const BAKING_CATEGORIES: CourseCategory[] = [
     },
     {
         name: "Chocolate",
+        image: "/products/chocolate_spoon.png",
         courses: [
             { id: "basic-advanced-chocolate", title: "Basic to Advanced Chocolate", duration: "1 Day", price: "₹2,000" },
             { id: "exotic-chocolate", title: "Exotic Chocolate", duration: "1 Day", price: "₹2,500" },
@@ -84,6 +89,7 @@ export const BAKING_CATEGORIES: CourseCategory[] = [
     },
     {
         name: "Travel Cake",
+        image: "/products/almond_coffee_cake.png",
         courses: [
             { id: "cupcakes-muffins", title: "Cupcakes and Muffins", duration: "1 Day", price: "₹2,000" },
             { id: "healthy-tea-cake", title: "Healthy Tea Time Cake", duration: "1 Day", price: "₹2,000" },
@@ -93,6 +99,7 @@ export const BAKING_CATEGORIES: CourseCategory[] = [
     },
     {
         name: "Exotic Bakes",
+        image: "/products/burnt_basque_cheesecake_new.png",
         courses: [
             { id: "cheese-cake", title: "Cheese Cake", duration: "1 Day", price: "₹2,000" },
             { id: "brownie-blondies", title: "Brownie and Blondies", duration: "1 Day", price: "₹2,000" },
@@ -103,6 +110,7 @@ export const BAKING_CATEGORIES: CourseCategory[] = [
     },
     {
         name: "Designer Cake (Cream Base)",
+        image: "/products/rasmalai_cake.png",
         courses: [
             { id: "basic-cream-cake", title: "Basic Cream Cake", duration: "2 Days", price: "₹3,000" },
             { id: "adv-cream-cake", title: "Basic to Advanced Cream Cake", duration: "3 Days", price: "₹5,000" },
@@ -110,6 +118,7 @@ export const BAKING_CATEGORIES: CourseCategory[] = [
     },
     {
         name: "Fondant Cake",
+        image: "/products/white_forest.png",
         courses: [
             { id: "basic-fondant-cake", title: "Basic Fondant Cake", duration: "3 Days", price: "₹4,500" },
             { id: "adv-fondant-cake", title: "Basic to Advanced Fondant Cake", duration: "4 Days", price: "₹8,000" },
@@ -118,6 +127,7 @@ export const BAKING_CATEGORIES: CourseCategory[] = [
     },
     {
         name: "Cakes in Trend",
+        image: "/products/paan_cake.png",
         courses: [
             { id: "chandelier-cake", title: "Chandelier Cake", duration: "1 Day", price: "₹3,500" },
             { id: "heart-cake", title: "Standing Heart Shaped Cake", duration: "1 Day", price: "₹2,500" },
@@ -132,12 +142,12 @@ export const BAKING_CATEGORIES: CourseCategory[] = [
 ];
 
 export const COOKING_CLASSES: Course[] = [
-    { id: "royal-sweets", title: "Royal Sweets", duration: "1 Day", price: "₹2,500" },
-    { id: "traditional-sweets", title: "Traditional Sweets", duration: "1 Day", price: "₹2,500" },
-    { id: "bengali-sweets", title: "Bengali Sweets", duration: "1 Day", price: "₹2,500" },
-    { id: "sizzlers", title: "Sizzling Sizzlers", duration: "2 Days", price: "₹2,000" },
+    { id: "royal-sweets", title: "Royal Sweets", duration: "1 Day", price: "₹2,500", image: "/products/royal_sweets_category.png" },
+    { id: "traditional-sweets", title: "Traditional Sweets", duration: "1 Day", price: "₹2,500", image: "/products/traditional_sweets_category.png" },
+    { id: "bengali-sweets", title: "Bengali Sweets", duration: "1 Day", price: "₹2,500", image: "/products/bengali_sweets_category.png" },
+    { id: "sizzlers", title: "Sizzling Sizzlers", duration: "2 Days", price: "₹2,000", image: "/products/sizzlers_category.png" },
     { id: "punjabi-veggies", title: "Punjabi Veggies", duration: "2 Days", price: "₹2,000" },
-    { id: "chinese-cuisine", title: "Chinese Cuisine", duration: "1 Day", price: "₹2,000" },
+    { id: "chinese-cuisine", title: "Chinese Cuisine", duration: "1 Day", price: "₹2,000", image: "/products/chinese_puff.png" },
     { id: "italian-cuisine", title: "Italian Cuisine", duration: "1 Day", price: "₹2,000" },
     { id: "thai-cuisine", title: "Thai Cuisine", duration: "1 Day", price: "₹2,000" },
     { id: "mexican-cuisine", title: "Mexican Cuisine", duration: "1 Day", price: "₹2,000" },
