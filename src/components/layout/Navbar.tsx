@@ -15,6 +15,7 @@ import { slugify } from "@/utils/slugify";
 const NAV_LINKS = [
   { label: "Home", href: "/", hasDropdown: false },
   { label: "Menu", href: "/menu", hasDropdown: true },
+  { label: "Gallery", href: "/gallery", hasDropdown: false },
   { label: "Cooking Classes", href: "/classes", hasDropdown: false },
   { label: "Our Story", href: "#our-story", hasDropdown: false },
   { label: "Contact", href: "#contact", hasDropdown: false },
@@ -108,7 +109,7 @@ export function Navbar() {
           </Link>
 
           {/* ── Desktop links (centred) ──────────────────────── */}
-          <ul className="hidden md:flex items-center gap-9">
+          <ul className="hidden xl:flex items-center gap-7">
             {NAV_LINKS.map((link) => (
               <li key={link.label} className={link.hasDropdown ? "relative group/menu" : ""}>
                 <Link
@@ -117,7 +118,7 @@ export function Navbar() {
                       ? `/${link.href}`
                       : link.href
                   }
-                  className="nav-link flex items-center gap-1 text-[13px] font-medium tracking-[0.15em] uppercase
+                  className="nav-link flex items-center gap-1 text-[13px] font-medium tracking-[0.1em] uppercase whitespace-nowrap
                              text-brand-cocoa/80 hover:text-brand-cocoa transition-colors"
                 >
                   {link.label}
@@ -157,7 +158,7 @@ export function Navbar() {
           </ul>
 
           {/* ── Desktop CTA ──────────────────────────────────── */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-3">
             <a
               href={SITE_CONFIG.instagramUrl}
               target="_blank"
@@ -188,7 +189,7 @@ export function Navbar() {
           </div>
 
           {/* ── Mobile buttons ───────────────────────────────── */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 xl:hidden">
             <a
               href={SITE_CONFIG.instagramUrl}
               target="_blank"
