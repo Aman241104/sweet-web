@@ -165,8 +165,8 @@ export const COOKING_CLASSES: Course[] = [
     { id: "ice-cream-faluda", title: "Natural Ice-Cream & Faluda", duration: "1 Day", price: "₹2,000", image: "/products/faluda_category.png" },
     { id: "healthy-soup", title: "Healthy Soup", duration: "1 Day", price: "₹2,000", image: "/products/soup_category.png" },
     { id: "exotic-salads", title: "Exotic Salads", duration: "1 Day", price: "₹2,000", image: "/products/salads_category.png" },
-    { id: "exotic-waffles", title: "Exotic Waffles", duration: "1 Day", price: "₹2,000" },
-    { id: "microwaves-dishes", title: "Microwaves Dishes", duration: "1 Day", price: "₹1,800" },
+    { id: "exotic-waffles", title: "Exotic Waffles", duration: "1 Day", price: "₹2,000", image: "/products/waffles_category.png" },
+    { id: "microwaves-dishes", title: "Microwaves Dishes", duration: "1 Day", price: "₹1,800", image: "/products/microwave_category.png" },
 ];
 
 // For backward compatibility or general use
