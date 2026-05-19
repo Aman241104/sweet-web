@@ -150,8 +150,8 @@ export default function ClassesPage() {
                                     <ArrowRight size={18} />
                                 </Link>
                                 <a
-                                    href="/products/CCWK-Baking%20Course-1-1.pdf"
-                                    download="Baking_Course_Details.pdf"
+                                    href="/products/CCWK-Baking%20Workshops.pdf"
+                                    download="CCWK-Baking Workshops.pdf"
                                     className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-accent text-white rounded-full font-medium tracking-wider uppercase hover:bg-white hover:text-brand-accent border border-brand-accent transition-all duration-300 shadow-xl hover:-translate-y-1"
                                 >
                                     Download Syllabus
@@ -420,8 +420,8 @@ export default function ClassesPage() {
                             Enquire Now
                         </a>
                         <a
-                            href="/products/CCWK-Baking%20Course-1-1.pdf"
-                            download="Baking_Course_Details.pdf"
+                            href="/products/CCWK-Baking%20Workshops.pdf"
+                            download="CCWK-Baking Workshops.pdf"
                             className="inline-flex items-center gap-4 px-10 py-5 bg-white text-brand-cocoa rounded-full text-lg font-bold uppercase tracking-widest hover:bg-brand-cocoa hover:text-white transition-all transform hover:scale-105 shadow-xl"
                         >
                             Download Syllabus
