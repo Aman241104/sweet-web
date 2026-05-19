@@ -7,51 +7,51 @@ export interface GalleryItem {
 
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
-    id: 1,
-    title: "Elegant Birthday Cake",
-    category: "Birthday",
-    image: "/products/black_forest.png",
-  },
-  {
-    id: 2,
-    title: "Royal Wedding Tier",
-    category: "Wedding",
-    image: "/products/white_forest.png",
-  },
-  {
-    id: 3,
-    title: "Anniversary Special",
-    category: "Anniversary",
-    image: "/products/rasmalai_cake.png",
-  },
-  {
-    id: 4,
-    title: "Customised Theme Cake",
+    id: 15,
+    title: "Dreamy 1st Birthday Train",
     category: "Customised",
-    image: "/products/hazelnut_cake.png",
+    image: "/products/customised_1st_birthday_train.png",
   },
   {
-    id: 5,
-    title: "Birthday Celebration",
-    category: "Birthday",
-    image: "/products/alphanzo_mango_cake.png",
-  },
-  {
-    id: 6,
-    title: "Classic Wedding Cake",
-    category: "Wedding",
-    image: "/products/rich_pineapple_cake.png",
-  },
-  {
-    id: 7,
-    title: "Luxury Anniversary",
-    category: "Anniversary",
-    image: "/products/dutch_truffle_cake.png",
-  },
-  {
-    id: 8,
-    title: "Unique Custom Design",
+    id: 16,
+    title: "Social Media Addict Cake",
     category: "Customised",
-    image: "/products/biscoff_cake.png",
+    image: "/products/customised_social_media_cake.png",
+  },
+  {
+    id: 13,
+    title: "Classic Red Rose Wedding",
+    category: "Wedding",
+    image: "/products/wedding_red_roses.png",
+  },
+  {
+    id: 14,
+    title: "Artisanal Peach Floral Tier",
+    category: "Wedding",
+    image: "/products/wedding_peach_floral.png",
+  },
+  {
+    id: 11,
+    title: "Elegant Hearts Anniversary",
+    category: "Anniversary",
+    image: "/products/anniversary_red_hearts.png",
+  },
+  {
+    id: 12,
+    title: "Royal Couple Tiered Cake",
+    category: "Anniversary",
+    image: "/products/anniversary_couple_tiered.png",
+  },
+  {
+    id: 9,
+    title: "Signature Birthday Blue",
+    category: "Birthday",
+    image: "/products/birthday_dad_blue.png",
+  },
+  {
+    id: 10,
+    title: "Luxury Chocolate Birthday",
+    category: "Birthday",
+    image: "/products/birthday_chocolate_split.png",
   },
 ];
