@@ -5,18 +5,25 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, MessageCircle, Instagram } from "lucide-react";
+import { Menu, X, MessageCircle, Instagram, ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { SITE_CONFIG } from "@/config/site";
+import { CATEGORIES } from "@/data/menu";
+import { slugify } from "@/utils/slugify";
 
 /* ── Constants ──────────────────────────────────────────────────── */
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Menu", href: "/menu" },
+  { label: "Menu", href: "/menu", hasDropdown: true },
   { label: "Cooking Classes", href: "/classes" },
   { label: "Our Story", href: "#our-story" },
   { label: "Contact", href: "#contact" },
 ] as const;
+
+const MENU_CATEGORIES = CATEGORIES.filter(c => c !== "All").map(cat => ({
+  label: cat,
+  href: `/menu/${slugify(cat)}`
+}));
 
 let isNavAnimated = false;
 
@@ -103,18 +110,48 @@ export function Navbar() {
           {/* ── Desktop links (centred) ──────────────────────── */}
           <ul className="hidden md:flex items-center gap-9">
             {NAV_LINKS.map((link) => (
-              <li key={link.label}>
+              <li key={link.label} className={link.hasDropdown ? "relative group/menu" : ""}>
                 <Link
                   href={
                     !isHome && link.href.startsWith("#")
                       ? `/${link.href}`
                       : link.href
                   }
-                  className="nav-link text-[13px] font-medium tracking-[0.15em] uppercase
+                  className="nav-link flex items-center gap-1 text-[13px] font-medium tracking-[0.15em] uppercase
                              text-brand-cocoa/80 hover:text-brand-cocoa transition-colors"
                 >
                   {link.label}
+                  {link.hasDropdown && (
+                    <ChevronDown size={14} className="opacity-40 group-hover/menu:rotate-180 transition-transform duration-300" />
+                  )}
                 </Link>
+
+                {link.hasDropdown && (
+                  <div className="absolute top-full left-0 pt-4 opacity-0 invisible group-hover/menu:opacity-100 group-hover/menu:visible transition-all duration-300 translate-y-2 group-hover/menu:translate-y-0 z-50">
+                    <div className="bg-brand-cream border border-brand-cocoa/10 shadow-xl rounded-2xl p-5 min-w-[240px]">
+                      <ul className="flex flex-col gap-3">
+                        {MENU_CATEGORIES.map((cat) => (
+                          <li key={cat.label}>
+                            <Link
+                              href={cat.href}
+                              className="text-[11px] uppercase tracking-[0.1em] font-medium text-brand-cocoa/60 hover:text-brand-cocoa transition-colors block py-1"
+                            >
+                              {cat.label}
+                            </Link>
+                          </li>
+                        ))}
+                        <li className="pt-2 mt-2 border-t border-brand-cocoa/5">
+                          <Link
+                            href="/menu"
+                            className="text-[11px] uppercase tracking-[0.1em] font-bold text-brand-cocoa hover:text-brand-blush transition-colors block py-1"
+                          >
+                            View All Categories
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </li>
             ))}
           </ul>
@@ -200,6 +237,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
   const linksRef = useRef<HTMLUListElement>(null);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const [menuExpanded, setMenuExpanded] = useState(false);
 
   useGSAP(
     () => {
@@ -226,6 +264,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
           duration: 0.4,
           ease: "power3.in",
         });
+        setMenuExpanded(false);
       }
     },
     { dependencies: [open] }
@@ -240,22 +279,58 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
     <div
       ref={drawerRef}
       style={{ clipPath: "inset(0% 0% 100% 0%)" }}
-      className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-brand-cream md:hidden"
+      className="fixed inset-0 z-40 flex flex-col bg-brand-cream md:hidden overflow-y-auto"
     >
-      <ul ref={linksRef} className="flex flex-col items-center gap-8">
+      <ul ref={linksRef} className="flex flex-col items-center gap-8 py-24 min-h-full">
         {NAV_LINKS.map((link) => (
-          <li key={link.label}>
-            <Link
-              href={
-                !isHome && link.href.startsWith("#")
-                  ? `/${link.href}`
-                  : link.href
-              }
-              onClick={onClose}
-              className="font-serif text-3xl tracking-tight text-brand-cocoa hover:text-brand-blush transition-colors"
-            >
-              {link.label}
-            </Link>
+          <li key={link.label} className="flex flex-col items-center gap-6 w-full">
+            <div className="flex items-center gap-4">
+              <Link
+                href={
+                  !isHome && link.href.startsWith("#")
+                    ? `/${link.href}`
+                    : link.href
+                }
+                onClick={onClose}
+                className="font-serif text-3xl tracking-tight text-brand-cocoa hover:text-brand-blush transition-colors"
+              >
+                {link.label}
+              </Link>
+              {link.hasDropdown && (
+                <button
+                  onClick={() => setMenuExpanded(!menuExpanded)}
+                  className="p-2 text-brand-cocoa/40"
+                  aria-label="Toggle Submenu"
+                >
+                  <ChevronDown
+                    size={24}
+                    className={`transition-transform duration-300 ${menuExpanded ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              )}
+            </div>
+
+            {link.hasDropdown && menuExpanded && (
+              <div className="grid grid-cols-1 gap-y-4 w-full px-12 transition-all duration-300">
+                {MENU_CATEGORIES.map((cat) => (
+                  <Link
+                    key={cat.label}
+                    href={cat.href}
+                    onClick={onClose}
+                    className="text-center text-[13px] uppercase tracking-[0.2em] font-bold text-brand-cocoa/60 active:text-brand-blush"
+                  >
+                    {cat.label}
+                  </Link>
+                ))}
+                <Link
+                  href="/menu"
+                  onClick={onClose}
+                  className="text-center text-[13px] uppercase tracking-[0.2em] font-bold text-brand-blush pt-4 border-t border-brand-cocoa/5"
+                >
+                  View All
+                </Link>
+              </div>
+            )}
           </li>
         ))}
 
