@@ -82,8 +82,8 @@ export function Navbar() {
     <>
       <nav
         ref={navRef}
-        className={`fixed top-10 left-0 w-full z-50 h-20 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ${scrolled || !isHome
-          ? "bg-brand-cream/90 backdrop-blur-md shadow-sm border-t-[6px] border-brand-accent"
+        className={`fixed top-10 left-0 w-full z-50 h-20 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ${scrolled || !isHome || mobileOpen
+          ? "bg-brand-cream shadow-sm border-t-[6px] border-brand-accent"
           : "bg-transparent border-t-[6px] border-transparent"
           }`}
       >
@@ -282,7 +282,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
       style={{ clipPath: "inset(0% 0% 100% 0%)" }}
       className="fixed inset-0 z-40 flex flex-col bg-brand-cream md:hidden overflow-y-auto"
     >
-      <ul ref={linksRef} className="flex flex-col items-center gap-8 py-24 min-h-full">
+      <ul ref={linksRef} className="flex flex-col items-center gap-8 pt-40 pb-20 min-h-full">
         {NAV_LINKS.map((link) => (
           <li key={link.label} className="flex flex-col items-center gap-6 w-full">
             <div className="flex items-center gap-4">

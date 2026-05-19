@@ -1,19 +1,17 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { MessageCircle, Clock, Star, ArrowRight } from "lucide-react";
-import { WORKSHOPS } from "@/data/classes";
+import { MessageCircle, Clock, ArrowRight, BookOpen, ChefHat, Download } from "lucide-react";
+import { BAKING_CATEGORIES, COOKING_CLASSES } from "@/data/classes";
 import { SITE_CONFIG } from "@/config/site";
 import { Footer } from "@/components/layout/Footer";
-import { SectionDivider } from "@/components/ui/SectionDivider";
 import {
     SketchWhisk,
     SketchCupcake,
-    SketchWheat,
     SketchStar,
     SketchRollingPin,
     SketchLeaf,
@@ -24,6 +22,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function ClassesPage() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const [activeTab, setActiveTab] = useState<"baking" | "cooking">("baking");
 
     useEffect(() => {
         // Wait for the DOM to be fully painted
@@ -78,21 +77,7 @@ export default function ClassesPage() {
                 ease: "power3.out",
             });
 
-            // 3. Workshop Cards - Staggered Lift
-            gsap.from(".workshop-card", {
-                scrollTrigger: {
-                    trigger: ".workshops-grid",
-                    start: "top 80%",
-                },
-                y: 80,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.15,
-                ease: "power2.out",
-                clearProps: "all" // Fix: Allow CSS hover effects to work after animation
-            });
-
-            // 4. USP Icons - Pop in
+            // 3. USP Icons - Pop in
             gsap.from(".usp-icon", {
                 scrollTrigger: {
                     trigger: ".usps-section",
@@ -138,26 +123,25 @@ export default function ClassesPage() {
                             </h1>
 
                             <p className="text-lg lg:text-xl text-brand-charcoal/80 mb-10 leading-relaxed max-w-lg">
-                                Step into Kavita Ma&apos;am&apos;s kitchen and master the science of <strong className="text-brand-cocoa">eggless baking</strong>. From sharp-edge strucutres to delicate macarons, we turn home bakers into professionals.
+                                Step into Kavita Ma&apos;am&apos;s kitchen and master the art of <strong className="text-brand-cocoa">eggless baking & gourmet cooking</strong>. From designer cakes to traditional sweets, we turn food enthusiasts into professionals.
                             </p>
 
                             <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                                 <Link
-                                    href="#workshops"
+                                    href="#curriculum"
                                     className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-cocoa text-brand-cream rounded-full font-medium tracking-wider uppercase hover:bg-brand-accent transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
                                 >
-                                    Start Creating
+                                    Explore Curriculum
                                     <ArrowRight size={18} />
                                 </Link>
-                                <a
-                                    href="/products/CCWK-Baking%20Workshops.pdf"
-                                    download="CCWK-Baking Workshops.pdf"
+                                <Link
+                                    href="#curriculum"
                                     className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-accent text-white rounded-full font-medium tracking-wider uppercase hover:bg-white hover:text-brand-accent border border-brand-accent transition-all duration-300 shadow-xl hover:-translate-y-1"
                                 >
-                                    Download Syllabus
-                                </a>
+                                    Full Curriculum
+                                </Link>
                                 <a
-                                    href="https://instagram.com/gourmettazone"
+                                    href="https://instagram.com/creativecookingwithkavitaa"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-transparent border border-brand-cocoa/20 text-brand-cocoa rounded-full font-medium tracking-wider uppercase hover:bg-brand-cocoa/5 transition-all duration-300"
@@ -268,78 +252,132 @@ export default function ClassesPage() {
                 </div>
             </section>
 
-            {/* ── Workshops Grid: "The Curriculum" ───────────────────────── */}
-            <section id="workshops" className="py-32 bg-brand-cream relative">
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-
-                <div className="container mx-auto px-6 max-w-7xl relative z-10">
-                    <div className="text-center mb-20">
-                        <span className="text-brand-accent font-bold tracking-widest uppercase text-sm mb-4 block">Education</span>
-                        <h2 className="font-serif text-5xl lg:text-6xl text-brand-cocoa mb-6">Creative Cooking With Kavita</h2>
-                        <div className="w-24 h-1 bg-brand-cocoa mx-auto rounded-full"></div>
+            {/* ── Full Curriculum Section ───────────────────────────── */}
+            <section id="curriculum" className="py-24 bg-white border-y border-brand-cocoa/5">
+                <div className="container mx-auto px-6 max-w-6xl">
+                    <div className="text-center mb-16">
+                        <h2 className="font-serif text-4xl lg:text-5xl text-brand-cocoa mb-4">Complete Syllabus</h2>
+                        <p className="text-brand-charcoal/60">Explore our wide range of professional baking and cooking courses.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 workshops-grid">
-                        {WORKSHOPS.map((workshop) => (
-                            <div
-                                key={workshop.id}
-                                className="workshop-card group relative bg-white rounded-none shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_60px_-10px_rgba(0,0,0,0.15)] transition-all duration-500 overflow-hidden"
+                    {/* Tabs */}
+                    <div className="flex justify-center mb-12">
+                        <div className="inline-flex p-1 bg-brand-cream rounded-xl border border-brand-cocoa/10">
+                            <button
+                                onClick={() => setActiveTab("baking")}
+                                className={`flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest transition-all duration-300 ${activeTab === "baking" ? "bg-brand-cocoa text-brand-cream shadow-lg" : "text-brand-cocoa/60 hover:text-brand-cocoa"}`}
                             >
-                                {/* 1. Image Area (Magazine Cover Style) */}
-                                <div className="relative h-[400px] w-full overflow-hidden">
-                                    <Image
-                                        src={workshop.image}
-                                        alt={workshop.title}
-                                        fill
-                                        className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                                    />
-                                    {/* Gradient Overlay for Text Readability */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-brand-cocoa via-transparent to-transparent opacity-90" />
+                                <ChefHat size={18} />
+                                Baking Courses
+                            </button>
+                            <button
+                                onClick={() => setActiveTab("cooking")}
+                                className={`flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-widest transition-all duration-300 ${activeTab === "cooking" ? "bg-brand-cocoa text-brand-cream shadow-lg" : "text-brand-cocoa/60 hover:text-brand-cocoa"}`}
+                            >
+                                <BookOpen size={18} />
+                                Cooking Courses
+                            </button>
+                        </div>
+                    </div>
 
-                                    {/* 2. Top Badge */}
-                                    <div className="absolute top-0 right-6 bg-brand-accent text-white px-4 py-3 shadow-lg rounded-b-lg flex flex-col items-center">
-                                        <span className="text-xs uppercase tracking-tighter opacity-80">Duration</span>
-                                        <span className="font-serif text-xl leading-none">{workshop.duration}</span>
+                    {/* Tab Content */}
+                    <div className="bg-brand-cream/30 rounded-3xl p-8 lg:p-12 border border-brand-cocoa/5">
+                        {activeTab === "baking" ? (
+                            <div className="space-y-12">
+                                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+                                    <div>
+                                        <h3 className="font-serif text-3xl text-brand-cocoa mb-2">Baking Workshops</h3>
+                                        <p className="text-brand-charcoal/60 text-sm">Professional certified courses across 9 specialized categories.</p>
                                     </div>
-
-                                    {/* 3. Title & Price Overlay */}
-                                    <div className="absolute bottom-0 left-0 w-full p-8 text-white">
-                                        <div className="inline-block px-2 py-1 bg-white/20 backdrop-blur-md rounded text-[10px] font-bold uppercase tracking-widest mb-3 border border-white/10">
-                                            {workshop.level} Level
-                                        </div>
-                                        <h3 className="font-serif text-3xl leading-tight mb-2 group-hover:text-brand-pista transition-colors duration-300">
-                                            {workshop.title}
-                                        </h3>
-                                        <div className="text-xl font-medium font-sans opacity-90">
-                                            {workshop.price}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* 4. Sliding Details Panel */}
-                                <div className="bg-white p-8 border-t border-brand-cocoa/5">
-                                    <div className="mb-6">
-                                        <ul className="space-y-3">
-                                            {workshop.curriculum.slice(0, 4).map((item, i) => (
-                                                <li key={i} className="flex items-start gap-3 text-brand-charcoal/80 text-sm group-hover:text-brand-cocoa transition-colors">
-                                                    <Star size={14} className="mt-1 text-brand-accent fill-brand-accent" />
-                                                    {item}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
                                     <a
-                                        href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(`Hi, I am interested in the "${workshop.title}" workshop. Please send me the syllabus and details.`)}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="w-full py-4 border border-brand-cocoa text-brand-cocoa font-bold uppercase tracking-widest hover:bg-brand-cocoa hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group-hover:gap-4"
+                                        href="/products/CCWK-Baking%20Workshops.pdf"
+                                        download
+                                        className="inline-flex items-center gap-2 px-6 py-3 bg-brand-accent text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-brand-cocoa transition-colors"
                                     >
-                                        Enquire Now <MessageCircle size={16} />
+                                        <Download size={16} />
+                                        Download PDF Syllabus
                                     </a>
                                 </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    {BAKING_CATEGORIES.map((category) => (
+                                        <div key={category.name} className="bg-white p-6 rounded-2xl shadow-sm border border-brand-cocoa/5 hover:border-brand-accent/20 transition-colors">
+                                            <h4 className="font-serif text-xl text-brand-accent mb-4 pb-2 border-b border-brand-accent/10">{category.name}</h4>
+                                            <ul className="space-y-4">
+                                                {category.courses.map((course) => (
+                                                    <li key={course.id} className="group">
+                                                        <div className="flex justify-between items-start mb-1">
+                                                            <span className="text-brand-cocoa font-medium text-sm leading-tight group-hover:text-brand-accent transition-colors">{course.title}</span>
+                                                            <span className="text-brand-accent font-bold text-sm ml-2">{course.price}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-brand-charcoal/40">
+                                                            <Clock size={10} />
+                                                            {course.duration}
+                                                        </div>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        ))}
+                        ) : (
+                            <div className="space-y-12">
+                                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+                                    <div>
+                                        <h3 className="font-serif text-3xl text-brand-cocoa mb-2">Cooking Courses</h3>
+                                        <p className="text-brand-charcoal/60 text-sm">From traditional sweets to global cuisines, master it all.</p>
+                                    </div>
+                                    <a
+                                        href="/products/CCWK_Cooking%20Course.pdf"
+                                        download
+                                        className="inline-flex items-center gap-2 px-6 py-3 bg-brand-accent text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-brand-cocoa transition-colors"
+                                    >
+                                        <Download size={16} />
+                                        Download PDF Syllabus
+                                    </a>
+                                </div>
+
+                                <div className="bg-white rounded-2xl shadow-sm border border-brand-cocoa/5 overflow-hidden">
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full text-left">
+                                            <thead>
+                                                <tr className="bg-brand-cocoa text-brand-cream text-xs uppercase tracking-[0.2em]">
+                                                    <th className="px-6 py-4 font-bold">Course Name</th>
+                                                    <th className="px-6 py-4 font-bold">Duration</th>
+                                                    <th className="px-6 py-4 font-bold text-right">Fee</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-brand-cocoa/5">
+                                                {COOKING_CLASSES.map((course) => (
+                                                    <tr key={course.id} className="hover:bg-brand-cream/50 transition-colors group">
+                                                        <td className="px-6 py-4">
+                                                            <span className="text-brand-cocoa font-medium group-hover:text-brand-accent transition-colors">{course.title}</span>
+                                                        </td>
+                                                        <td className="px-6 py-4">
+                                                            <div className="flex items-center gap-2 text-xs text-brand-charcoal/60">
+                                                                <Clock size={12} className="text-brand-accent" />
+                                                                {course.duration}
+                                                            </div>
+                                                        </td>
+                                                        <td className="px-6 py-4 text-right">
+                                                            <span className="text-brand-accent font-bold">{course.price}</span>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* General Notes */}
+                        <div className="mt-12 p-6 bg-white/50 rounded-2xl border border-dashed border-brand-cocoa/20 text-center">
+                            <p className="text-xs text-brand-charcoal/60 uppercase tracking-widest leading-relaxed">
+                                *All classes are <strong className="text-green-700">pure veg and eggless</strong> • Prior registration mandatory • Maximum batch size: 6 students • individual classes available on request
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -403,15 +441,15 @@ export default function ClassesPage() {
                 <div className="container mx-auto px-6 relative z-10 text-center max-w-3xl">
                     <SketchDoodle className="w-48 h-12 text-brand-accent/30 mx-auto mb-8 " />
                     <h2 className="font-serif text-5xl lg:text-7xl text-brand-cream mb-8 leading-tight">
-                        Your Baking Journey <br />
+                        Your Culinary Journey <br />
                         <span className="text-brand-accent">Starts Here</span>
                     </h2>
                     <p className="text-xl text-brand-cream/70 mb-12 font-light">
-                        Secure your spot in our next batch. Reach out via WhatsApp for the detailed curriculum and schedule.
+                        Secure your spot in our next batch. Reach out via WhatsApp for the detailed curriculum and schedule for our Baking and Cooking classes.
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
                         <a
-                            href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=Hi Kavita Ma&apos;am, I am interested in your baking classes.`}
+                            href={`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=Hi Kavita Ma&apos;am, I am interested in your baking and cooking classes.`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-4 px-10 py-5 bg-brand-accent text-white rounded-full text-lg font-bold uppercase tracking-widest hover:bg-white hover:text-brand-accent transition-all transform hover:scale-105 shadow-[0_20px_50px_-10px_rgba(217,56,86,0.3)]"
@@ -419,13 +457,12 @@ export default function ClassesPage() {
                             <MessageCircle size={24} />
                             Enquire Now
                         </a>
-                        <a
-                            href="/products/CCWK-Baking%20Workshops.pdf"
-                            download="CCWK-Baking Workshops.pdf"
+                        <Link
+                            href="#curriculum"
                             className="inline-flex items-center gap-4 px-10 py-5 bg-white text-brand-cocoa rounded-full text-lg font-bold uppercase tracking-widest hover:bg-brand-cocoa hover:text-white transition-all transform hover:scale-105 shadow-xl"
                         >
-                            Download Syllabus
-                        </a>
+                            View Full Syllabus
+                        </Link>
                     </div>
                 </div>
             </section>
