@@ -13,11 +13,11 @@ import { slugify } from "@/utils/slugify";
 
 /* ── Constants ──────────────────────────────────────────────────── */
 const NAV_LINKS = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: "/", hasDropdown: false },
   { label: "Menu", href: "/menu", hasDropdown: true },
-  { label: "Cooking Classes", href: "/classes" },
-  { label: "Our Story", href: "#our-story" },
-  { label: "Contact", href: "#contact" },
+  { label: "Cooking Classes", href: "/classes", hasDropdown: false },
+  { label: "Our Story", href: "#our-story", hasDropdown: false },
+  { label: "Contact", href: "#contact", hasDropdown: false },
 ] as const;
 
 const MENU_CATEGORIES = CATEGORIES.filter(c => c !== "All").map(cat => ({
